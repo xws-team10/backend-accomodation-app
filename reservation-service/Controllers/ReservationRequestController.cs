@@ -9,10 +9,12 @@ namespace reservation_service.Controllers
     public class ReservationRequestController : ControllerBase
     {
         private readonly ReservationRequestService _reservationRequestService;
+        private readonly ReservationService _reservationService;
 
-        public ReservationRequestController(ReservationRequestService reservationRequestService)
+        public ReservationRequestController(ReservationRequestService reservationRequestService, ReservationService reservationService)
         {
             _reservationRequestService = reservationRequestService;
+            _reservationService = reservationService;
         }
 
         [HttpGet]
@@ -25,9 +27,7 @@ namespace reservation_service.Controllers
             var reservationRequest = await _reservationRequestService.GetByIdAsync(id);
 
             if (reservationRequest is null)
-            {
                 return NotFound();
-            }
 
             return reservationRequest;
         }
@@ -35,6 +35,12 @@ namespace reservation_service.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ReservationRequest newReservationRequest)
         {
+            if (!newReservationRequest.Validate())
+                return BadRequest();
+
+            if (!IsAvailable(newReservationRequest).Result)
+                return BadRequest();
+
             await _reservationRequestService.CreateAsync(newReservationRequest);
 
             return CreatedAtAction(nameof(Get), new { id = newReservationRequest.Id }, newReservationRequest);
@@ -43,13 +49,31 @@ namespace reservation_service.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, ReservationRequest updateReservationRequest)
         {
+            if (!updateReservationRequest.Validate())
+                return BadRequest();
+
             var reservationRequest = await _reservationRequestService.GetByIdAsync(id);
 
             if (reservationRequest is null)
-            {
                 return NotFound();
-            }
+
             updateReservationRequest.Id = reservationRequest.Id;
+
+            if (updateReservationRequest.Status.Equals(Status.APPROVED))
+            {
+                Reservation newReservation = new()
+                {
+                    StartDate = updateReservationRequest.StartDate,
+                    EndDate = updateReservationRequest.EndDate,
+                    NumberOfGuests = updateReservationRequest.NumberOfGuests,
+                    AccomodationId = updateReservationRequest.AccomodationId,
+                    GuestId = updateReservationRequest.GuestId
+                };
+                if (IsAvailable(newReservation).Result)
+                    await _reservationService.CreateAsync(newReservation);
+                else
+                    return BadRequest();
+            }
 
             await _reservationRequestService.UpdateAsync(id, updateReservationRequest);
 
@@ -62,13 +86,37 @@ namespace reservation_service.Controllers
             var reservationRequest = await _reservationRequestService.GetByIdAsync(id);
 
             if (reservationRequest is null)
-            {
                 return NotFound();
-            }
 
             await _reservationRequestService.DeleteAsync(id);
 
             return NoContent();
+        }
+
+        private async Task<bool> IsAvailable(ReservationRequest reservationRequest)
+        {
+            List<Reservation> reservations = await _reservationService.GetAllAsync();
+            List<Reservation> filteredReservations = reservations.FindAll(r => r.AccomodationId.Equals(reservationRequest.AccomodationId));
+
+            foreach (Reservation reservation in filteredReservations)
+            {
+                if (reservation.Overlaps(reservationRequest))
+                    return false;
+            }
+            return true;
+        }
+
+        private async Task<bool> IsAvailable(Reservation reservation)
+        {
+            List<Reservation> reservations = await _reservationService.GetAllAsync();
+            List<Reservation> filteredReservations = reservations.FindAll(r => r.AccomodationId.Equals(reservation.AccomodationId));
+
+            foreach (Reservation res in filteredReservations)
+            {
+                if (res.Overlaps(reservation))
+                    return false;
+            }
+            return true;
         }
     }
 }

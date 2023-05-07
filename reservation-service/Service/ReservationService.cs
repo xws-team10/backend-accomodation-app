@@ -19,8 +19,19 @@ namespace reservation_service.Service
         public async Task<Reservation> GetByIdAsync(Guid id) =>
             await _repository.GetByIdAsync(id);
 
-        public async Task CreateAsync(Reservation newReservation) =>
+        public async Task CreateAsync(Reservation newReservation)
+        {
+            List<Reservation> reservations = await GetAllAsync();
+            List<Reservation> filteredReservations = reservations.FindAll(r => r.AccomodationId.Equals(newReservation.AccomodationId));
+
+            foreach (Reservation reservation in filteredReservations)
+            {
+                if (reservation.Overlaps(newReservation))
+                    return;
+            }
+
             await _repository.CreateAsync(newReservation);
+        }
 
         public async Task UpdateAsync(Guid id, Reservation updateReservation) =>
             await _repository.UpdateAsync(id, updateReservation);
