@@ -52,3 +52,10 @@ services:
       ME_CONFIG_MONGODB_SERVER: reservationdb
     depends_on:
       - reservationdb
+
+  apigateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8001:80"
+

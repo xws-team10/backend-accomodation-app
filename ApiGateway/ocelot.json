@@ -1,0 +1,85 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/ReservationRequest",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reservation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/ReservationRequest"
+    },
+    {
+      "UpstreamPathTemplate": "/api/ReservationRequest/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reservation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/ReservationRequest/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Reservation",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reservation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Reservation"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Reservation/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reservation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Reservation/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/AccomodationSearch",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "search-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/AccomodationSearch"
+    },
+    {
+      "UpstreamPathTemplate": "/api/AccomodationSearch/getBySearch",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "search-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/AccomodationSearch/getBySearch"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:800"
+  }
+}

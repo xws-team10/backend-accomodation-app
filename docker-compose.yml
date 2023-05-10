@@ -24,3 +24,11 @@ services:
 
   mongo-express1:
     image: mongo-express 
+
+  apigateway:
+    container_name: api-gateway
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway\Dockerfile
+
