@@ -4,8 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>reservation_service</RootNamespace>
-    <UserSecretsId>29c70197-407a-4e03-9960-c779a2644b4f</UserSecretsId>
+    <RootNamespace>search_service</RootNamespace>
+    <UserSecretsId>f1393f6f-1c20-4a6c-af5f-5e9329563f08</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
