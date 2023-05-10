@@ -5,7 +5,7 @@ using accomodation_service.Service;
 namespace accomodation_service.Controllers
 {
     [ApiController]
-    [Route("api/controller")]
+    [Route("api/[controller]")]
     public class AccomodationController : ControllerBase
     {
         private readonly AccomodationService _service;
