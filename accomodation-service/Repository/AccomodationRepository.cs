@@ -15,10 +15,18 @@ namespace accomodation_service.Repository
             _accomodationsCollection = mongoDatabase.GetCollection<Accomodation>(accomodationDatabaseSettings.Value.AccomodationsCollectionName);
         }
 
-        public async Task<List<Accomodation>> GetAllAsync() =>
+        public async Task<IEnumerable<Accomodation>> GetAllAsync() =>
             await _accomodationsCollection.Find(_ => true).ToListAsync();
 
-        public async Task CreateAsync(Accomodation newAccomodation) =>
+        public async Task CreateAsync(Accomodation newAccomodation){
+            if(newAccomodation == null){
+                throw new ArgumentNullException(nameof(newAccomodation));
+            }
             await _accomodationsCollection.InsertOneAsync(newAccomodation);
+        }
+        public async Task<Accomodation> GetAccomodationById(Guid id){
+            return await _accomodationsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            
+        }
     }
 }

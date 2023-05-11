@@ -14,12 +14,15 @@ namespace accomodation_service.Service
             _repository = repository;
         }
 
-        public async Task<List<Accomodation>> GetAllAsync() =>
+        public async Task<IEnumerable<Accomodation>> GetAllAsync() =>
             await _repository.GetAllAsync();
 
         public async Task CreateAsync(Accomodation newAccomodation)
         {
             await _repository.CreateAsync(newAccomodation);
         }
+
+        public async Task<Accomodation> GetAccomodationById(Guid id) =>
+            await _repository.GetAccomodationById(id);
     }
 }

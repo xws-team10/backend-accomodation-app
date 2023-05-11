@@ -1,12 +1,9 @@
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+using accomodation_service.Model;
 
-namespace accomodation_service.Model
+namespace accomodation_service.Dtos
 {
-    public class Accomodation
+    public class AccomodationReadDto
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -15,5 +12,6 @@ namespace accomodation_service.Model
         public int maxCapacity { get; set; }
         public Address Address { get; set; }
         public string PictureUrl { get; set; }
+    
     }
 }
