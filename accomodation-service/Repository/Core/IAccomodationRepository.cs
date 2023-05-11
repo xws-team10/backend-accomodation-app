@@ -1,3 +1,4 @@
+using accomodation_service.Dtos;
 using accomodation_service.Model;
 
 namespace accomodation_service.Repository.Core
@@ -8,5 +9,7 @@ namespace accomodation_service.Repository.Core
         Task CreateAsync(Accomodation accomodation);
 
         Task<Accomodation> GetAccomodationById(Guid id);
+
+        Task AccomodationUpdate(AccomodationChangeDto accomodationChangeDto);
     }
 }
