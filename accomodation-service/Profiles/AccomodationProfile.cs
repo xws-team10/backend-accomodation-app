@@ -10,6 +10,7 @@ namespace accomodation_service.Profiles
         {
             // Source -> Target
             CreateMap<Accomodation, AccomodationReadDto>();
+            CreateMap<AccomodationReadDto, Accomodation>();
             CreateMap<AccomodationCreateDto, Accomodation>();
         }
     }

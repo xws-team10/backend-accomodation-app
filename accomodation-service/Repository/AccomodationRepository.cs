@@ -45,7 +45,7 @@ namespace accomodation_service.Repository
             {
                 accomodation.AvailableToDate = accomodationChangeDto.AvailableToDate;
                 accomodation.AvailableFromDate = accomodationChangeDto.AvailableFromDate;
-                if(accomodation.AvailabilityValidate())
+                if(accomodation.AvailabilityInitialValidate())
                 {
                     await _accomodationsCollection.ReplaceOneAsync(x => x.Id == accomodation.Id, accomodation);
                     return;

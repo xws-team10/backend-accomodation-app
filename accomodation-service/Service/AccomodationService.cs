@@ -30,5 +30,14 @@ namespace accomodation_service.Service
         {
             await _repository.AccomodationUpdate(accomodationChangeDto);
         }
+
+        public async Task<bool> AvailabilityCheck(Guid id, DateTime from, DateTime to)
+        {
+            var accomodation = await GetAccomodationById(id);
+            if(accomodation != null){
+                return accomodation.AvailabilityCheck(from, to);
+            }
+            return false;
+        }
     }
 }

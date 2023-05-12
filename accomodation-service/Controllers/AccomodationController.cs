@@ -37,13 +37,17 @@ namespace accomodation_service.Controllers
 
             return NotFound();
         }
-           
+
+        [HttpGet("availabilityCheck/{id}")]
+        public async Task<bool> AvailabilityCheck(Guid id, DateTime from, DateTime to){
+            return await _service.AvailabilityCheck(id, from, to);
+        }  
 
         [HttpPost]
         public async Task<ActionResult<AccomodationReadDto>> CreateAsync(AccomodationCreateDto accomodationCreateDto)
         {
             var accomodationModel = _mapper.Map<Accomodation>(accomodationCreateDto);
-            if (!accomodationModel.AvailabilityValidate()) return BadRequest(new ProblemDetails{Title = "Date time is not valid!"});
+            if (!accomodationModel.AvailabilityInitialValidate()) return BadRequest(new ProblemDetails{Title = "Date time is not valid!"});
             await _service.CreateAsync(accomodationModel);
 
             var accomodationReadDto = _mapper.Map<AccomodationReadDto>(accomodationModel);
@@ -58,6 +62,7 @@ namespace accomodation_service.Controllers
         {
             await _service.AccomodationUpdate(accomodationChangeDto);
             return Ok();
+            
         }
     }
 

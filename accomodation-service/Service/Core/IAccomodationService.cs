@@ -9,5 +9,6 @@ namespace accomodation_service.Service.Core
         Task CreateAsync(Accomodation newAccomodation);
         Task<Accomodation> GetAccomodationById(Guid id);
         Task AccomodationUpdate(AccomodationChangeDto accomodationChangeDto);
+        Task<bool> AvailabilityCheck(Guid id, DateTime from, DateTime to);
     }
 }

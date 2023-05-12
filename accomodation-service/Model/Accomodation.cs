@@ -14,6 +14,7 @@ namespace accomodation_service.Model
         public Guid HostId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; } 
+        public bool PricePerGuest { get; set; }
         public int Price { get; set; }
         public int MinCapacity { get; set; }
         public int MaxCapacity { get; set; }
@@ -21,17 +22,19 @@ namespace accomodation_service.Model
         public string PictureUrl { get; set; }
         public DateTime AvailableFromDate { get; set; }
         public DateTime AvailableToDate { get; set; }
-
-        //availableFromDate
-        //availableToDate
-        //hostId
-
-        // id dateFrom dateTo accomodationId 
-        public bool AvailabilityValidate()
+        public bool AvailabilityInitialValidate()
         {
             if (AvailableFromDate < DateTime.Now || AvailableToDate < AvailableFromDate) return false;   
             
             return true;
+        }
+
+        public bool AvailabilityCheck(DateTime DateFrom, DateTime DateTo)
+        {
+            if (DateFrom > AvailableFromDate && DateFrom < AvailableToDate && DateTo > DateFrom && DateTo < AvailableToDate){
+                return true;
+            }
+            return false;
         }
         
     }
