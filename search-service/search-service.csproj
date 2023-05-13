@@ -28,6 +28,6 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="Protos\search.proto" GrpcServices="Server"></Protobuf>
+		<Protobuf Include="Protos\search.proto" GrpcServices="Both"></Protobuf>
 	</ItemGroup>
 </Project>
