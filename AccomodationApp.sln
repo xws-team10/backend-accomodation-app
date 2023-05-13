@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "account-service", "..\account-service\account-service.csproj", "{68731159-44BB-4649-AD21-D0D176D027E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "..\WebApplication1\WebApplication1.csproj", "{04721A4D-9270-45FF-BF6B-C772F634D576}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{68731159-44BB-4649-AD21-D0D176D027E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68731159-44BB-4649-AD21-D0D176D027E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68731159-44BB-4649-AD21-D0D176D027E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{04721A4D-9270-45FF-BF6B-C772F634D576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04721A4D-9270-45FF-BF6B-C772F634D576}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{04721A4D-9270-45FF-BF6B-C772F634D576}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04721A4D-9270-45FF-BF6B-C772F634D576}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
