@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using reservation_service.GrpcServices;
 using reservation_service.Model;
 using reservation_service.Service;
 
@@ -10,11 +11,13 @@ namespace reservation_service.Controllers
     {
         private readonly ReservationRequestService _reservationRequestService;
         private readonly ReservationService _reservationService;
+        private readonly SearchClient _searchClient;
 
-        public ReservationRequestController(ReservationRequestService reservationRequestService, ReservationService reservationService)
+        public ReservationRequestController(ReservationRequestService reservationRequestService, ReservationService reservationService, SearchClient searchClient)
         {
             _reservationRequestService = reservationRequestService;
             _reservationService = reservationService;
+            _searchClient = searchClient;
         }
 
         [HttpGet]
@@ -24,8 +27,9 @@ namespace reservation_service.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ReservationRequest>> Get(Guid id)
         {
+            _searchClient.ReturnAllAccomodations(id);
             var reservationRequest = await _reservationRequestService.GetByIdAsync(id);
-
+            
             if (reservationRequest is null)
                 return NotFound();
 

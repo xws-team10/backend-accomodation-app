@@ -1,0 +1,19 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "search_service";
+
+service GrpcSearch {
+	rpc GetAllAccom (GetAllRequest) returns (SearchResponse);
+}
+
+message GetAllRequest {
+	string Id = 1;
+}
+
+message GrpcSearchModel {
+	string Id = 1;
+}
+
+message SearchResponse {
+	repeated GrpcSearchModel search = 1;
+}

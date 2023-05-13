@@ -1,7 +1,9 @@
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
 using search_service.Model;
+using search_service.Profiles;
 using search_service.Repository;
 using search_service.Service;
+using search_service.Service.Grpc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,8 +37,11 @@ var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
 builder.Services.AddSingleton<AccomodationRepository>();
 builder.Services.AddSingleton<AccomodationSearchService>();
 
+builder.Services.AddGrpc();
 
 builder.Services.AddControllers();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -54,13 +59,22 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(opt =>
 {
-    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000");
+    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000"); 
+    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:5279");
 });
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapGrpcService<GrpcSearchServise>();
+
+});
+
 
 app.Run();

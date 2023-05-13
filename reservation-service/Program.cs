@@ -1,4 +1,5 @@
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
+using reservation_service.GrpcServices;
 using reservation_service.Model;
 using reservation_service.Repository;
 using reservation_service.Service;
@@ -38,7 +39,10 @@ builder.Services.AddSingleton<ReservationRequestService>();
 builder.Services.AddSingleton<ReservationRepository>();
 builder.Services.AddSingleton<ReservationService>();
 
+builder.Services.AddSingleton<SearchClient>();
+
 builder.Services.AddControllers();
+//builder.Services.AddAutoMapper(config => config.ShouldMapMethod = (m => false));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
