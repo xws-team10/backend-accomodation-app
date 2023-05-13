@@ -16,7 +16,6 @@ namespace search_service.ProtoServices
         }  
         public IEnumerable<AccomodationDto> GetAllFreeAccomodations(DateTime startDate, DateTime endDate)
         {
-            
             Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcSearch"]} ");
             var channel = GrpcChannel.ForAddress(_configuration["GrpcSearch"]);
             var client = new GrpcSearch.GrpcSearchClient(channel);

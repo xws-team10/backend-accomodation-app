@@ -77,6 +77,45 @@
         }
       ],
       "DownstreamPathTemplate": "/api/AccomodationSearch/getBySearch"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Accomodation",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accomodation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Accomodation"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Accomodation/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accomodation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Accomodation/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Accomodation/availabilityCheck/{id}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accomodation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Accomodation/availabilityCheck/{id}"
     }
   ],
   "GlobalConfiguration": {
