@@ -1,5 +1,6 @@
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
 using search_service.Model;
+using search_service.ProtoServices;
 using search_service.Repository;
 using search_service.Service;
 
@@ -35,8 +36,13 @@ var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
 builder.Services.AddSingleton<AccomodationRepository>();
 builder.Services.AddSingleton<AccomodationSearchService>();
 
+builder.Services.AddSingleton<FreeAccomodations>();
+
+builder.Services.AddGrpc();
 
 builder.Services.AddControllers();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

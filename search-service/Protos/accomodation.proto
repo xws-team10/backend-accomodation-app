@@ -1,0 +1,20 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "reservation_service";
+
+service GrpcSearch {
+	rpc GetAllFreeAccomodations (GetAllRequest) returns (AccomodationResponse);
+}
+
+message GetAllRequest {
+	string StartDate = 1;
+	string EndDate = 2;
+}
+
+message AccomodationModel {
+	string Id = 1;
+}
+
+message AccomodationResponse {
+	repeated AccomodationModel accomodation = 1;
+}
