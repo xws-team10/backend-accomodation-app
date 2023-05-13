@@ -1,4 +1,5 @@
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using search_service.Model;
 using search_service.ProtoServices;
 using search_service.Repository;
@@ -39,6 +40,10 @@ builder.Services.AddSingleton<AccomodationSearchService>();
 builder.Services.AddSingleton<FreeAccomodations>();
 
 builder.Services.AddGrpc();
+builder.Services.Configure<KestrelServerOptions>(options =>
+{
+    options.ConfigureEndpointDefaults(lo => lo.Protocols = HttpProtocols.Http2);
+});
 
 builder.Services.AddControllers();
 

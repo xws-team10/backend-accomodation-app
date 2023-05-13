@@ -1,4 +1,5 @@
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using reservation_service.Model;
 using reservation_service.ProtoServices;
 using reservation_service.Repository;
@@ -40,6 +41,10 @@ builder.Services.AddSingleton<ReservationRepository>();
 builder.Services.AddSingleton<ReservationService>();
 
 builder.Services.AddGrpc();
+builder.Services.Configure<KestrelServerOptions>(options =>
+{
+    options.ConfigureEndpointDefaults(lo => lo.Protocols = HttpProtocols.Http2);
+});
 
 builder.Services.AddControllers();
 
@@ -62,7 +67,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors(opt =>
 {
     opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000");
-    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:5091");
+    //opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:5000");
 });
 
 app.UseHttpsRedirection();
@@ -75,7 +80,6 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapGrpcService<GrpcSearchService>();
-
 });
 
 app.Run();

@@ -4,6 +4,9 @@ services:
   accomodationdb:
     image: mongo
 
+  searchdb:
+    image: mongo
+
   reservationdb:
     image: mongo
 
@@ -31,4 +34,10 @@ services:
     build:
       context: .
       dockerfile: ApiGateway\Dockerfile
+
+  accomodation-service:
+    image: ${DOCKER_REGISTRY-}accomodationservice
+    build:
+      context: .
+      dockerfile: accomodation-service\Dockerfile
 

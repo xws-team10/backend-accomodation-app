@@ -1,11 +1,18 @@
 version: '3.4'
 
 services:
+
   accomodationdb:
     container_name: accomodationdb
     restart: always
     ports:
-      - "27017:27017"
+      - "18007:27017"
+
+  searchdb:
+    container_name: searchdb
+    restart: always
+    ports:
+      - "18006:27017"
 
   reservationdb:
     container_name: reservationdb
@@ -17,9 +24,10 @@ services:
     container_name: search-service
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "AccomodationDatabase:ConnectionString=mongodb://accomodationdb:27017"
+      - "AccomodationDatabase:ConnectionString=mongodb://searchdb:27017"
+      - "GrpcSearch=http://localhost:5101"
     depends_on:
-      - accomodationdb
+      - searchdb
     ports:
       - "5000:80"
  
@@ -32,6 +40,18 @@ services:
       - reservationdb
     ports:
       - "5100:80"
+      - "5101:80"
+      
+
+  accomodation-service:
+    container_name: accomodation-service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "AccomodationDatabase:ConnectionString=mongodb://accomodationdb:27017"
+    depends_on:
+      - accomodationdb
+    ports:
+      - "5200:80"
 
   mongo-express:
     image: mongo-express
@@ -39,9 +59,9 @@ services:
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_SERVER: accomodationdb reservationdb
+      ME_CONFIG_MONGODB_SERVER: searchdb
     depends_on:
-      - accomodationdb
+      - searchdb
 
   mongo-express1:
     image: mongo-express
@@ -58,4 +78,3 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "8001:80"
-
