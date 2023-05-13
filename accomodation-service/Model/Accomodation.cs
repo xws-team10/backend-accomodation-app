@@ -22,6 +22,7 @@ namespace accomodation_service.Model
         public string PictureUrl { get; set; }
         public DateTime AvailableFromDate { get; set; }
         public DateTime AvailableToDate { get; set; }
+        public bool isAutomaticConfirm { get; set; }
         public bool AvailabilityInitialValidate()
         {
             if (AvailableFromDate < DateTime.Now || AvailableToDate < AvailableFromDate) return false;   

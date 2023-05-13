@@ -16,6 +16,7 @@ namespace accomodation_service.Dtos
         public string PictureUrl { get; set;}
         public DateTime AvailableFromDate { get; set;}
         public DateTime AvailableToDate { get; set;}
+        public bool isAutomaticConfirm { get; set; }
     
     }
 }
