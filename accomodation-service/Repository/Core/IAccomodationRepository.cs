@@ -11,5 +11,6 @@ namespace accomodation_service.Repository.Core
         Task<Accomodation> GetAccomodationById(Guid id);
 
         Task AccomodationUpdate(AccomodationChangeDto accomodationChangeDto);
+        Task AccomodationChangePrice(AccomodationChangePriceDto accomodationChangePriceDto);
     }
 }

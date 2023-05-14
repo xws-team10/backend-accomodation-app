@@ -56,5 +56,18 @@ namespace accomodation_service.Repository
 
             throw new ArgumentNullException(nameof(accomodationChangeDto));
         }
+
+        public async Task AccomodationChangePrice(AccomodationChangePriceDto accomodationChangePriceDto)
+        {
+            var accomodation = _accomodationsCollection.Find(x => x.Id == accomodationChangePriceDto.Id).FirstOrDefault();
+            if(accomodation != null)
+            {
+                accomodation.Price = accomodationChangePriceDto.Price;
+                await _accomodationsCollection.ReplaceOneAsync(x => x.Id == accomodation.Id, accomodation);
+                return;
+            }
+
+            throw new ArgumentNullException(nameof(accomodationChangePriceDto));
+        }
     }
 }

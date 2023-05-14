@@ -39,5 +39,10 @@ namespace accomodation_service.Service
             }
             return false;
         }
+
+        public async Task AccomodationChangePrice(AccomodationChangePriceDto accomodationChangePriceDto)
+        {
+            await _repository.AccomodationChangePrice(accomodationChangePriceDto);
+        }
     }
 }
