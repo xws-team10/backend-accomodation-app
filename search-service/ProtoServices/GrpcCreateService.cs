@@ -49,5 +49,15 @@ namespace search_service.ProtoServices
 
             return null;
         }
+
+        public override Task<UpdatePriceResponse> UpdateAccomodationPrice(UpdatePriceRequest request, ServerCallContext context)
+        {
+            AccomodationChangePriceDto changePriceDto = new AccomodationChangePriceDto();
+            changePriceDto.Id = Guid.Parse(request.Id);
+            changePriceDto.Price = request.Price;
+
+            _reservationRepository.AccomodationChangePrice(changePriceDto).Wait();
+            return null;
+        }
     }
 }

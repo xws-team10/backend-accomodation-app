@@ -46,5 +46,18 @@ namespace search_service.Repository
             return await _accomodationsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
         }
+
+        public async Task AccomodationChangePrice(AccomodationChangePriceDto accomodationChangePriceDto)
+        {
+            var accomodation = _accomodationsCollection.Find(x => x.Id == accomodationChangePriceDto.Id).FirstOrDefault();
+            if (accomodation != null)
+            {
+                accomodation.Price = accomodationChangePriceDto.Price;
+                await _accomodationsCollection.ReplaceOneAsync(x => x.Id == accomodation.Id, accomodation);
+                return;
+            }
+
+            throw new ArgumentNullException(nameof(accomodationChangePriceDto));
+        }
     }
 }

@@ -79,6 +79,7 @@ namespace accomodation_service.Controllers
         [HttpPut("change-price")]
         public async Task<IActionResult> AccomodationChangePrice(AccomodationChangePriceDto accomodationChangePriceDto){
             await _service.AccomodationChangePrice(accomodationChangePriceDto);
+            createAccomodation.UpdateAccomodationPrice(accomodationChangePriceDto);
             return Ok();
         }
     }

@@ -5,6 +5,7 @@ option csharp_namespace = "search_service";
 service GrpcCreate {
 	rpc CreateNewAccomodation (CreateRequest) returns (CreateResponse);
     rpc UpdateAccomodation (UpdateRequest) returns (UpdateResponse);
+    rpc UpdateAccomodationPrice (UpdatePriceRequest) returns (UpdatePriceResponse);
 }
 
 message CreateRequest {
@@ -30,3 +31,10 @@ message UpdateRequest {
 }
 
 message UpdateResponse{}
+
+message UpdatePriceRequest {
+	string Id = 1;
+    int32 Price = 2;
+}
+
+message UpdatePriceResponse{}

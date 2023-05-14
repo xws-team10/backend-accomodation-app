@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using accomodation_service.Dtos;
+using AutoMapper;
 using Grpc.Net.Client;
 using search_service;
 
@@ -41,6 +42,22 @@ namespace accomodation_service.ProtoServices
             try
             {
                 var reply = client.UpdateAccomodation(request);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"--> Couldnot call GRPC Server {ex.Message}");
+            }
+        }
+
+        public void UpdateAccomodationPrice(AccomodationChangePriceDto changePriceDto)
+        {
+            Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcCreate"]} ");
+            var channel = GrpcChannel.ForAddress(_configuration["GrpcCreate"]);
+            var client = new GrpcCreate.GrpcCreateClient(channel);
+            var request = new UpdatePriceRequest { Id = changePriceDto.Id.ToString(), Price = changePriceDto.Price };
+            try
+            {
+                var reply = client.UpdateAccomodationPrice(request);
             }
             catch (Exception ex)
             {

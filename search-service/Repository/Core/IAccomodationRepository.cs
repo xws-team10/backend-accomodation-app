@@ -9,5 +9,6 @@ namespace search_service.Repository.Core
         Task CreateAsync(Accomodation accomodation);
         Task<Accomodation> GetAccomodationById(Guid id);
         Task AccomodationUpdate(AccomodationUpdateDto accomodationChangeDto);
+        Task AccomodationChangePrice(AccomodationChangePriceDto accomodationChangePriceDto);
     }
 }
