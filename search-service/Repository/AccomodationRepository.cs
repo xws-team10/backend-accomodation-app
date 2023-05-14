@@ -40,5 +40,11 @@ namespace search_service.Repository
 
             throw new ArgumentNullException(nameof(accomodationChangeDto));
         }
+
+        public async Task<Accomodation> GetAccomodationById(Guid id)
+        {
+            return await _accomodationsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+
+        }
     }
 }

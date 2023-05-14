@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Grpc.Core;
 using reservation_service;
+using search_service.DTO;
 using search_service.Model;
 using search_service.Repository;
 using search_service.Repository.Core;
@@ -33,6 +34,18 @@ namespace search_service.ProtoServices
             accomodation.AvailableToDate = DateTime.Parse(request.AvailableToDate);
 
             _reservationRepository.CreateAsync(accomodation).Wait();
+
+            return null;
+        }
+
+        public override async Task<UpdateResponse> UpdateAccomodation(UpdateRequest request, ServerCallContext context)
+        {
+            AccomodationUpdateDto accomodationUpdateDto = new AccomodationUpdateDto();
+            accomodationUpdateDto.Id = Guid.Parse(request.Id);
+            accomodationUpdateDto.AvailableFromDate = DateTime.Parse(request.AvailableFromDate);
+            accomodationUpdateDto.AvailableToDate = DateTime.Parse(request.AvailableToDate);
+
+            _reservationRepository.AccomodationUpdate(accomodationUpdateDto).Wait();
 
             return null;
         }

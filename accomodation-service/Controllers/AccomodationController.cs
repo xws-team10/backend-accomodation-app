@@ -71,6 +71,7 @@ namespace accomodation_service.Controllers
         public async Task<IActionResult> AccomodationUpdate(AccomodationChangeDto accomodationChangeDto)
         {
             await _service.AccomodationUpdate(accomodationChangeDto);
+            createAccomodation.UpdateAccomodation(accomodationChangeDto.Id,accomodationChangeDto.AvailableFromDate,accomodationChangeDto.AvailableToDate);
             return Ok();
             
         }

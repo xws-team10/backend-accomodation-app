@@ -31,5 +31,21 @@ namespace accomodation_service.ProtoServices
                 Console.WriteLine($"--> Couldnot call GRPC Server {ex.Message}");
             }
         }
+
+        public void UpdateAccomodation(Guid Id, DateTime AvailableFromDate, DateTime AvailableToDate)
+        {
+            Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcCreate"]} ");
+            var channel = GrpcChannel.ForAddress(_configuration["GrpcCreate"]);
+            var client = new GrpcCreate.GrpcCreateClient(channel);
+            var request = new UpdateRequest { Id = Id.ToString(),AvailableFromDate= AvailableFromDate.ToString(),AvailableToDate = AvailableToDate.ToString() };
+            try
+            {
+                var reply = client.UpdateAccomodation(request);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"--> Couldnot call GRPC Server {ex.Message}");
+            }
+        }
     }
 }

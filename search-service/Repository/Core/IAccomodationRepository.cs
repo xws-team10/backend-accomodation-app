@@ -7,6 +7,7 @@ namespace search_service.Repository.Core
     {
         Task<List<Accomodation>> GetAllAsync();
         Task CreateAsync(Accomodation accomodation);
+        Task<Accomodation> GetAccomodationById(Guid id);
         Task AccomodationUpdate(AccomodationUpdateDto accomodationChangeDto);
     }
 }
