@@ -1,7 +1,10 @@
 ﻿using accomodation_service.Dtos;
 using AutoMapper;
 using Grpc.Net.Client;
+using reservation_service;
 using search_service;
+using System.Diagnostics.Metrics;
+using System.Xml.Linq;
 
 namespace accomodation_service.ProtoServices
 {
@@ -14,6 +17,25 @@ namespace accomodation_service.ProtoServices
         {
             _configuration = configuration;
             _mapper = mapper;
+        }
+
+        public bool CheckReservations(Guid id, DateTime startDate, DateTime endDate)
+        {
+            Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcCheckReservations"]} ");
+            var channel = GrpcChannel.ForAddress(_configuration["GrpcCheckReservations"]);
+            var client = new GrpcCheckReservations.GrpcCheckReservationsClient(channel);
+            var request = new CheckReservationsRequest { Id = id.ToString(), StartDate = startDate.ToString(), EndDate = endDate.ToString()};
+
+            try
+            {
+                var reply = client.CheckReservations(request);
+                return reply.IsFree;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"--> Couldnot call GRPC Server {ex.Message}");
+                return false;
+            }
         }
 
         public void CreateNewAccomodation(Guid Id, string Name, string Description, int Price, int Capacity, string Country, string City, string Street, string StreetNumber, DateTime AvailableFromDate, DateTime AvailableToDate)

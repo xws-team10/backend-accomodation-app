@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "reservation_service";
+
+service GrpcCheckReservations {
+	rpc CheckReservations (CheckReservationsRequest) returns (CheckReservationsResponse);
+}
+
+message CheckReservationsRequest{
+	string Id = 1;
+	string StartDate = 2;
+	string EndDate = 3;
+}
+
+message CheckReservationsResponse {
+	bool isFree = 1;
+}

@@ -70,9 +70,13 @@ namespace accomodation_service.Controllers
         [HttpPut]
         public async Task<IActionResult> AccomodationUpdate(AccomodationChangeDto accomodationChangeDto)
         {
-            await _service.AccomodationUpdate(accomodationChangeDto);
-            createAccomodation.UpdateAccomodation(accomodationChangeDto.Id,accomodationChangeDto.AvailableFromDate,accomodationChangeDto.AvailableToDate);
-            return Ok();
+            if(createAccomodation.CheckReservations(accomodationChangeDto.Id, accomodationChangeDto.AvailableFromDate, accomodationChangeDto.AvailableToDate))
+            {
+                await _service.AccomodationUpdate(accomodationChangeDto);
+                createAccomodation.UpdateAccomodation(accomodationChangeDto.Id, accomodationChangeDto.AvailableFromDate, accomodationChangeDto.AvailableToDate);
+                return Ok();
+            }
+            return BadRequest();
             
         }
 

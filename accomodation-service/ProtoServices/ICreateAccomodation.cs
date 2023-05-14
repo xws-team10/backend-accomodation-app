@@ -9,5 +9,7 @@ namespace accomodation_service.ProtoServices
         void UpdateAccomodation(Guid Id, DateTime AvailableFromDate, DateTime AvailableToDate);
 
         void UpdateAccomodationPrice(AccomodationChangePriceDto changePriceDto);
+
+        bool CheckReservations(Guid id, DateTime startDate, DateTime endDate);
     }
 }
