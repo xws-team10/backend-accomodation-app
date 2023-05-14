@@ -57,7 +57,7 @@ namespace account_service.Controller
         [Route("register")]
         public async Task<ActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            var user = new User { UserName = registerDto.Username, Email = registerDto.Email, Address = null, UserRole = registerDto.UserRole, Name = registerDto.Name, Surname = registerDto.Surname };
+            var user = new User { UserName = registerDto.Username, Email = registerDto.Email, Address = registerDto.Address, UserRole = registerDto.UserRole, Name = registerDto.Name, Surname = registerDto.Surname };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
@@ -86,14 +86,19 @@ namespace account_service.Controller
             {
                 Email = user.Email,
                 Token = await _tokenService.GenerateToken(user),
-                UserRole = user.UserRole
+                UserRole = user.UserRole,
+                Name = user.Name,
+                Surname = user.Surname,
+                Address = user.Address,
+                Id = user.Id,
             };
         }
 
         [HttpDelete("{username}")]
         public async Task<IActionResult> DeleteUser(string username)
         {
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByEmailAsync(username);
+
 
             if (user == null)
                 return NotFound();
