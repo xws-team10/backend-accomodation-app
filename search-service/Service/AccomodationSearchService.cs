@@ -50,5 +50,10 @@ namespace search_service.Service
 
             await _repository.CreateAsync(newAccomodation);
         }
+
+        public async Task AccomodationUpdate(AccomodationUpdateDto accomodationChangeDto)
+        {
+            await _repository.AccomodationUpdate(accomodationChangeDto);
+        }
     }
 }

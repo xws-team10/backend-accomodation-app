@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using search_service.DTO;
 using search_service.Model;
 using search_service.Repository.Core;
 
@@ -20,5 +21,24 @@ namespace search_service.Repository
 
         public async Task CreateAsync(Accomodation newAccomodation) =>
             await _accomodationsCollection.InsertOneAsync(newAccomodation);
+
+        public async Task AccomodationUpdate(AccomodationUpdateDto accomodationChangeDto)
+        {
+            var accomodation = _accomodationsCollection.Find(x => x.Id == accomodationChangeDto.Id).FirstOrDefault();
+            if (accomodation != null)
+            {
+                accomodation.AvailableToDate = accomodationChangeDto.AvailableToDate;
+                accomodation.AvailableFromDate = accomodationChangeDto.AvailableFromDate;
+                if (accomodation.AvailabilityInitialValidate())
+                {
+                    await _accomodationsCollection.ReplaceOneAsync(x => x.Id == accomodation.Id, accomodation);
+                    return;
+                }
+
+                throw new Exception("Invalid date time!");
+            }
+
+            throw new ArgumentNullException(nameof(accomodationChangeDto));
+        }
     }
 }
