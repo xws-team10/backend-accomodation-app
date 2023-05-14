@@ -2,7 +2,7 @@
   "Routes": [
     {
       "UpstreamPathTemplate": "/api/ReservationRequest",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": ["Get", "Post"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -15,7 +15,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/ReservationRequest/{id}",
-      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+      "UpstreamHttpMethod": ["Get", "Put", "Delete"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -28,7 +28,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/ReservationRequest/getByGuest/{id}",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": ["Get"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -41,7 +41,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/ReservationRequest/getByAccomodation/{id}",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": ["Get"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -54,7 +54,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/Reservation",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": ["Get", "Post"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -67,7 +67,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/Reservation/{id}",
-      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+      "UpstreamHttpMethod": ["Get", "Put", "Delete"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -80,7 +80,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/Reservation/getByGuest/{id}",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": ["Get"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -93,7 +93,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/Reservation/getByAccomodation/{id}",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": ["Get"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -106,7 +106,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/AccomodationSearch",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": ["Get", "Post"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -119,7 +119,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/AccomodationSearch/getBySearch",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": ["Get"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -132,8 +132,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/Accomodation",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
-
+      "UpstreamHttpMethod": ["Get", "Post", "Put"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -146,7 +145,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/Accomodation/{id}",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": ["Get"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -159,7 +158,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/Accomodation/availabilityCheck/{id}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+      "UpstreamHttpMethod": ["Get", "Post", "Put"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -171,8 +170,21 @@
       "DownstreamPathTemplate": "/api/Accomodation/availabilityCheck/{id}"
     },
     {
+      "UpstreamPathTemplate": "/api/Accomodation/change-price",
+      "UpstreamHttpMethod": ["Put"],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accomodation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Accomodation/change-price"
+    },
+    {
       "UpstreamPathTemplate": "/api/Account/login",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": ["Post"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -185,7 +197,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/Account/register",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": ["Post"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -198,7 +210,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/Account/currentUser",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": ["Get"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -211,7 +223,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/Account/{username}",
-      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamHttpMethod": ["Delete"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -224,7 +236,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/Account/update",
-      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamHttpMethod": ["Put"],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
