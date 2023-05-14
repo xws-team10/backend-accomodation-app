@@ -6,7 +6,7 @@ namespace reservation_service.Service.Core
     {
         Task<List<Reservation>> GetAllAsync();
         Task<Reservation> GetByIdAsync(Guid id);
-        Task<List<Reservation>> GetAllByGuestIdAsync(Guid id);
+        Task<List<Reservation>> GetAllByGuestUsernameAsync(string username);
         Task<List<Reservation>> GetAllByAccomodationIdAsync(Guid id);
         Task CreateAsync(Reservation newReservation);
         Task UpdateAsync(Guid id, Reservation updateReservation);

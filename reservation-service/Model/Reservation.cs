@@ -1,14 +1,19 @@
-﻿namespace reservation_service.Model
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace reservation_service.Model
 {
     public class Reservation
     {
+        [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
         public DateTime Created { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfGuests { get; set; }
+        [BsonRepresentation(BsonType.String)]
         public Guid AccomodationId { get; set; }
-        public Guid GuestId { get; set; }
+        public string GuestUsername { get; set; }
 
         public Reservation()
         {

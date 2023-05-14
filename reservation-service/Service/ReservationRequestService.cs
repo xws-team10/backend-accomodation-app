@@ -18,8 +18,8 @@ namespace reservation_service.Service
 
         public async Task<ReservationRequest> GetByIdAsync(Guid id) =>
             await _repository.GetByIdAsync(id);
-        public async Task<List<ReservationRequest>> GetAllByGuestIdAsync(Guid id) =>
-            await _repository.GetAllByGuestIdAsync(id);
+        public async Task<List<ReservationRequest>> GetAllByGuestUsernameAsync(string username) =>
+            await _repository.GetAllByGuestUsernameAsync(username);
 
         public async Task<List<ReservationRequest>> GetAllByAccomodationIdAsync(Guid id) =>
             await _repository.GetAllByAccomodationIdAsync(id);

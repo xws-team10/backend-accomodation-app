@@ -21,8 +21,8 @@ namespace reservation_service.Repository
         public async Task<Reservation> GetByIdAsync(Guid id) =>
             await _reservationsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task<List<Reservation>> GetAllByGuestIdAsync(Guid id) =>
-            await _reservationsCollection.Find(x => x.GuestId == id).ToListAsync();
+        public async Task<List<Reservation>> GetAllByGuestUsernameAsync(string username) =>
+            await _reservationsCollection.Find(x => x.GuestUsername.Equals(username)).ToListAsync();
 
         public async Task<List<Reservation>> GetAllByAccomodationIdAsync(Guid id) =>
             await _reservationsCollection.Find(x => x.AccomodationId == id).ToListAsync();
