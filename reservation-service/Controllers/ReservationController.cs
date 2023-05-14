@@ -30,6 +30,14 @@ namespace reservation_service.Controllers
             return reservation;
         }
 
+        [HttpGet("getByGuest{id}")]
+        public async Task<List<Reservation>> GetByGuestId(Guid id) =>
+           await _reservationService.GetAllByGuestIdAsync(id);
+
+        [HttpGet("getByAccomodation/{id}")]
+        public async Task<List<Reservation>> GetByAccomodationId(Guid id) =>
+           await _reservationService.GetAllByAccomodationIdAsync(id);
+
         [HttpPost]
         public async Task<IActionResult> Post(Reservation newReservation)
         {

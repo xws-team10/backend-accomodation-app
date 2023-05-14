@@ -6,6 +6,8 @@ namespace reservation_service.Repository.Core
     {
         Task<List<ReservationRequest>> GetAllAsync();
         Task<ReservationRequest> GetByIdAsync(Guid id);
+        Task<List<ReservationRequest>> GetAllByGuestIdAsync(Guid id);
+        Task<List<ReservationRequest>> GetAllByAccomodationIdAsync(Guid id);
         Task CreateAsync(ReservationRequest newReservationRequest);
         Task UpdateAsync(Guid id, ReservationRequest updateReservationRequest);
         Task DeleteAsync(Guid id);

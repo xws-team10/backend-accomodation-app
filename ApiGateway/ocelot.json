@@ -27,6 +27,32 @@
       "DownstreamPathTemplate": "/api/ReservationRequest/{id}"
     },
     {
+      "UpstreamPathTemplate": "/api/ReservationRequest/getByGuest/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reservation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/ReservationRequest/getByGuest/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/ReservationRequest/getByAccomodation/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reservation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/ReservationRequest/getByAccomodation/{id}"
+    },
+    {
       "UpstreamPathTemplate": "/api/Reservation",
       "UpstreamHttpMethod": [ "Get", "Post" ],
 
@@ -51,6 +77,32 @@
         }
       ],
       "DownstreamPathTemplate": "/api/Reservation/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Reservation/getByGuest/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reservation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Reservation/getByGuest/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Reservation/getByAccomodation/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reservation-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Reservation/getByAccomodation/{id}"
     },
     {
       "UpstreamPathTemplate": "/api/AccomodationSearch",
