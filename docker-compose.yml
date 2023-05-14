@@ -10,6 +10,9 @@ services:
   reservationdb:
     image: mongo
 
+  accountdb:
+    image: mongo
+
   search-service:
     image: ${DOCKER_REGISTRY-}searchservice
     build:
@@ -40,4 +43,11 @@ services:
     build:
       context: .
       dockerfile: accomodation-service\Dockerfile
+
+
+  account-service:
+    image: ${DOCKER_REGISTRY-}accountservice
+    build:
+      context: .
+      dockerfile: account-service\Dockerfile
 

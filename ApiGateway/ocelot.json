@@ -171,19 +171,6 @@
       "DownstreamPathTemplate": "/api/Account/{username}"
     },
     {
-      "UpstreamPathTemplate": "/api/Account/{username}",
-      "UpstreamHttpMethod": [ "Delete" ],
-
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "account-service",
-          "Port": 80
-        }
-      ],
-      "DownstreamPathTemplate": "/api/Account/{username}"
-    },
-    {
       "UpstreamPathTemplate": "/api/Account/update",
       "UpstreamHttpMethod": [ "Put" ],
 

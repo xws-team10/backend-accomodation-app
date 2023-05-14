@@ -20,6 +20,12 @@ services:
     ports:
      - "18005:27017"
 
+  accountdb:
+    container_name: accountdb
+    restart: always
+    ports:
+     - "18008:27017"
+
   search-service:
     container_name: search-service
     environment:
@@ -52,6 +58,18 @@ services:
       - accomodationdb
     ports:
       - "5200:80"
+
+
+  account-service:
+    container_name: account-service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "AccountDatabase:ConnectionString=mongodb://accountdb:27017"
+    depends_on:
+      - accountdb
+    ports:
+      - "5300:80"
+
 
   mongo-express:
     image: mongo-express
