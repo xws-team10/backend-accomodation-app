@@ -31,8 +31,8 @@ namespace reservation_service.Controllers
         }
 
         [HttpGet("getByGuest/{id}")]
-        public async Task<List<Reservation>> GetByGuestUsername(string username) =>
-           await _reservationService.GetAllByGuestUsernameAsync(username);
+        public async Task<List<Reservation>> GetByGuestUsername(string id) =>
+           await _reservationService.GetAllByGuestUsernameAsync(id);
 
         [HttpGet("getByAccomodation/{id}")]
         public async Task<List<Reservation>> GetByAccomodationId(Guid id) =>
@@ -65,8 +65,6 @@ namespace reservation_service.Controllers
             if (reservation is null)
                 return NotFound();
 
-            
-
             updateReservation.Id = reservation.Id;
 
             await _reservationService.UpdateAsync(id, updateReservation);
@@ -81,6 +79,9 @@ namespace reservation_service.Controllers
 
             if (reservation is null)
                 return NotFound();
+
+            if (reservation.StartDate <= DateTime.Now.AddDays(1))
+                return BadRequest();
 
             await _reservationService.DeleteAsync(id);
 

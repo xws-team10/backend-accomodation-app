@@ -49,7 +49,8 @@ namespace account_service.Controller
             {
                 Email = user.Email,
                 Token = await _tokenService.GenerateToken(user),
-                UserRole = user.UserRole
+                UserRole = user.UserRole,
+                UserName = user.UserName
             };
         }
 
@@ -86,6 +87,7 @@ namespace account_service.Controller
             {
                 Email = user.Email,
                 Token = await _tokenService.GenerateToken(user),
+                UserName = user.UserName,
                 UserRole = user.UserRole,
                 Name = user.Name,
                 Surname = user.Surname,
