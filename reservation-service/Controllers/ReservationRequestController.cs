@@ -49,6 +49,25 @@ namespace reservation_service.Controllers
             if (!IsAvailable(newReservationRequest).Result)
                 return BadRequest();
 
+            if (newReservationRequest.Status.Equals(Status.APPROVED))
+            {
+                Reservation newReservation = new()
+                {
+                    StartDate = newReservationRequest.StartDate,
+                    EndDate = newReservationRequest.EndDate,
+                    NumberOfGuests = newReservationRequest.NumberOfGuests,
+                    AccomodationId = newReservationRequest.AccomodationId,
+                    GuestUsername = newReservationRequest.GuestUsername
+                };
+                if (IsAvailable(newReservation).Result)
+                {
+                    await _reservationService.CreateAsync(newReservation);
+                    await RejectOthers(newReservationRequest);
+                }
+                else
+                    return BadRequest();
+            }
+
             await _reservationRequestService.CreateAsync(newReservationRequest);
 
             return CreatedAtAction(nameof(Get), new { id = newReservationRequest.Id }, newReservationRequest);
@@ -78,7 +97,10 @@ namespace reservation_service.Controllers
                     GuestUsername = updateReservationRequest.GuestUsername
                 };
                 if (IsAvailable(newReservation).Result)
+                {
                     await _reservationService.CreateAsync(newReservation);
+                    await RejectOthers(updateReservationRequest);
+                }
                 else
                     return BadRequest();
             }
@@ -128,6 +150,22 @@ namespace reservation_service.Controllers
                     return false;
             }
             return true;
+        }
+
+        private async Task RejectOthers(ReservationRequest reservationRequest)
+        {
+            List<ReservationRequest> reservationRequests = await _reservationRequestService.GetAllAsync();
+            List<ReservationRequest> filteredReservationRequests = reservationRequests.FindAll(r => r.AccomodationId.Equals(reservationRequest.AccomodationId));
+
+            foreach (ReservationRequest res in filteredReservationRequests)
+            {
+                if (res.Overlaps(reservationRequest))
+                {
+                    res.Status = Status.REJECTED;
+                    await _reservationRequestService.UpdateAsync(res.Id, res);
+                }
+            }
+            return;
         }
     }
 }

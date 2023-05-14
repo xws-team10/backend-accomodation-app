@@ -30,7 +30,6 @@ namespace reservation_service.Model
 
         public bool Overlaps(Reservation other) => (StartDate <= other.EndDate) && (EndDate >= other.StartDate);
         public bool Overlaps(ReservationRequest other) => (StartDate <= other.EndDate) && (EndDate >= other.StartDate);
-
         public bool Overlaps(DateTime startDate, DateTime endDate) => (StartDate <= endDate) && (EndDate >= startDate);
     }
 }
