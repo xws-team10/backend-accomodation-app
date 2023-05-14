@@ -82,6 +82,7 @@
       "UpstreamPathTemplate": "/api/Accomodation",
       "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
 
+
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -116,6 +117,84 @@
         }
       ],
       "DownstreamPathTemplate": "/api/Accomodation/availabilityCheck/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Account/login",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/login"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Account/register",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/register"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Account/currentUser",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/currentUser"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Account/{username}",
+      "UpstreamHttpMethod": [ "Delete" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/{username}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Account/{username}",
+      "UpstreamHttpMethod": [ "Delete" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/{username}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Account/update",
+      "UpstreamHttpMethod": [ "Put" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/update"
     }
   ],
   "GlobalConfiguration": {
