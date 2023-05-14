@@ -1,7 +1,13 @@
-﻿namespace search_service.Model
+﻿using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+namespace search_service.Model
 {
     public class Accomodation
     {
+        [Key]
+        [BsonId]
+        [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
