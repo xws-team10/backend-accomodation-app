@@ -1,4 +1,5 @@
-﻿using search_service.Model;
+﻿using search_service.DTO;
+using search_service.Model;
 
 namespace search_service.Service.Core
 {
@@ -7,5 +8,6 @@ namespace search_service.Service.Core
         Task<List<Accomodation>> GetAllAsync();
         Task<List<Accomodation>> GetBySearch(int capacity, DateTime startDate, DateTime endDate, string place, int price);
         Task CreateAsync(Accomodation newAccomodation);
+        Task AccomodationUpdate(AccomodationUpdateDto accomodationChangeDto);
     }
 }

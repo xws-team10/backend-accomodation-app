@@ -1,4 +1,5 @@
-﻿using search_service.Model;
+﻿using search_service.DTO;
+using search_service.Model;
 
 namespace search_service.Repository.Core
 {
@@ -6,5 +7,6 @@ namespace search_service.Repository.Core
     {
         Task<List<Accomodation>> GetAllAsync();
         Task CreateAsync(Accomodation accomodation);
+        Task AccomodationUpdate(AccomodationUpdateDto accomodationChangeDto);
     }
 }

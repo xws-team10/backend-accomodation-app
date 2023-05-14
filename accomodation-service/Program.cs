@@ -2,6 +2,7 @@ using AspNetCore.Identity.MongoDbCore.Infrastructure;
 using accomodation_service.Model;
 using accomodation_service.Repository;
 using accomodation_service.Service;
+using accomodation_service.ProtoServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,8 +33,12 @@ var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
     }
 };
 
+builder.Services.AddGrpc();
+
 builder.Services.AddSingleton<AccomodationRepository>();
 builder.Services.AddSingleton<AccomodationService>();
+
+builder.Services.AddSingleton<CreateAccomodation>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

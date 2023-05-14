@@ -3,6 +3,7 @@ using accomodation_service.Model;
 using accomodation_service.Service;
 using AutoMapper;
 using accomodation_service.Dtos;
+using accomodation_service.ProtoServices;
 
 namespace accomodation_service.Controllers
 {
@@ -12,11 +13,13 @@ namespace accomodation_service.Controllers
     {
         private readonly AccomodationService _service;
         private readonly IMapper _mapper;
+        private readonly CreateAccomodation createAccomodation;
 
-        public AccomodationController(AccomodationService service, IMapper mapper)
+        public AccomodationController(AccomodationService service, IMapper mapper, CreateAccomodation createAccomodation)
         {
             _service = service;
             _mapper = mapper;
+            this.createAccomodation = createAccomodation;
         }
 
         [HttpGet]
@@ -47,11 +50,18 @@ namespace accomodation_service.Controllers
         public async Task<ActionResult<AccomodationReadDto>> CreateAsync(AccomodationCreateDto accomodationCreateDto)
         {
             var accomodationModel = _mapper.Map<Accomodation>(accomodationCreateDto);
+
+            
+
             if (!accomodationModel.AvailabilityInitialValidate()) return BadRequest(new ProblemDetails{Title = "Date time is not valid!"});
-            await _service.CreateAsync(accomodationModel);
+            {
+                await _service.CreateAsync(accomodationModel);
+                createAccomodation.CreateNewAccomodation(accomodationModel.Id, accomodationModel.Name, accomodationModel.Description, accomodationModel.Price, accomodationModel.MaxCapacity, accomodationModel.Address.Country, accomodationModel.Address.City,
+                accomodationModel.Address.Street, accomodationModel.Address.StreetNumber, accomodationModel.AvailableFromDate, accomodationModel.AvailableToDate);
+            }
 
             var accomodationReadDto = _mapper.Map<AccomodationReadDto>(accomodationModel);
-
+            
             return CreatedAtRoute(nameof(GetAccomodationById), new { id = accomodationReadDto.Id}, accomodationReadDto);
             // await _service.CreateAsync(newAccomodation);
             // return CreatedAtAction(nameof(GetAccomodations), new { id = newAccomodation.Id }, newAccomodation);
