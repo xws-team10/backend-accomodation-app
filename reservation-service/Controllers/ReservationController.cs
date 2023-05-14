@@ -38,6 +38,8 @@ namespace reservation_service.Controllers
 
             if (!IsAvailable(newReservation).Result)
                 return BadRequest();
+            
+            // da li je dostupan
 
             await _reservationService.CreateAsync(newReservation);
 
@@ -54,6 +56,8 @@ namespace reservation_service.Controllers
 
             if (reservation is null)
                 return NotFound();
+
+            
 
             updateReservation.Id = reservation.Id;
 
