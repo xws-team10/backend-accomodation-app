@@ -57,7 +57,7 @@ namespace account_service.Controller
         [Route("register")]
         public async Task<ActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            var user = new User { UserName = registerDto.Username, Email = registerDto.Email, Address = null, UserRole = "GUEST" };
+            var user = new User { UserName = registerDto.Username, Email = registerDto.Email, Address = null, UserRole = registerDto.UserRole, Name = registerDto.Name, Surname = registerDto.Surname };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
@@ -71,7 +71,7 @@ namespace account_service.Controller
                 return ValidationProblem();
             }
 
-            await _userManager.AddToRoleAsync(user, "GUEST");
+            await _userManager.AddToRoleAsync(user, registerDto.UserRole);
 
             return StatusCode(201);
         }

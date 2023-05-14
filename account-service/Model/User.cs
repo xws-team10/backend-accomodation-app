@@ -8,5 +8,8 @@ namespace account_service.Model
         public UserAddress Address { get; set; } = null!;
         public string UserRole { get; set; }
         public int CancelCounterGuest { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+
     }
 }

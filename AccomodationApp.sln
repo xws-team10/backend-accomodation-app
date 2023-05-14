@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "account-service", "account-service\account-service.csproj", "{27E8381A-704B-4F12-AC4F-42D47BBFA90A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "accomodation-service", "accomodation-service\accomodation-service.csproj", "{9ACD5E72-8DC4-44EA-B20A-78E5CFB8324E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "accomodation-service", "accomodation-service\accomodation-service.csproj", "{9ACD5E72-8DC4-44EA-B20A-78E5CFB8324E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,12 +37,14 @@ Global
 		{226B6F89-7C60-4423-B64B-4B0FA5C55D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{226B6F89-7C60-4423-B64B-4B0FA5C55D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{226B6F89-7C60-4423-B64B-4B0FA5C55D2E}.Release|Any CPU.Build.0 = Release|Any CPU
-
+		{27E8381A-704B-4F12-AC4F-42D47BBFA90A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27E8381A-704B-4F12-AC4F-42D47BBFA90A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27E8381A-704B-4F12-AC4F-42D47BBFA90A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27E8381A-704B-4F12-AC4F-42D47BBFA90A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9ACD5E72-8DC4-44EA-B20A-78E5CFB8324E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9ACD5E72-8DC4-44EA-B20A-78E5CFB8324E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ACD5E72-8DC4-44EA-B20A-78E5CFB8324E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ACD5E72-8DC4-44EA-B20A-78E5CFB8324E}.Release|Any CPU.Build.0 = Release|Any CPU
-
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
