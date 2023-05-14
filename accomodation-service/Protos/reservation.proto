@@ -15,3 +15,17 @@ message CheckReservationsRequest{
 message CheckReservationsResponse {
 	bool isFree = 1;
 }
+
+service GrpcCheckAccomodations {
+	rpc CheckAccomodations (CheckAccomodationsRequest) returns (CheckAccomodationsResponse);
+}
+
+message CheckAccomodationsRequest{
+	string Id = 1;
+	string StartDate = 2;
+	string EndDate = 3;
+}
+
+message CheckAccomodationsResponse {
+	bool isFree = 1;
+}
