@@ -80,6 +80,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapGrpcService<GrpcSearchService>();
+    endpoints.MapGrpcService<GrpcCheckService>();
 });
 
 app.Run();
