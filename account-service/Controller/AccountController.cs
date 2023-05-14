@@ -93,6 +93,7 @@ namespace account_service.Controller
                 Surname = user.Surname,
                 Address = user.Address,
                 Id = user.Id,
+                Username = user.UserName,
             };
         }
 
@@ -130,8 +131,12 @@ namespace account_service.Controller
             if (user == null)
                 return NotFound();
 
-            user.Email = updateUserDto.Email;
             user.UserName = updateUserDto.Username;
+            user.Name = updateUserDto.Name;
+            user.Surname = updateUserDto.Surname;
+            user.Address = updateUserDto.Address;   
+            user.Email = updateUserDto.Email;
+            user.UserRole = updateUserDto.Role;
 
             if (!string.IsNullOrEmpty(updateUserDto.Password))
             {
