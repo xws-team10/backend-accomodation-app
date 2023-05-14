@@ -42,7 +42,7 @@ builder.Services.AddSingleton<FreeAccomodations>();
 builder.Services.AddGrpc();
 builder.Services.Configure<KestrelServerOptions>(options =>
 {
-    options.ConfigureEndpointDefaults(lo => lo.Protocols = HttpProtocols.Http2);
+    options.ConfigureEndpointDefaults(lo => lo.Protocols = HttpProtocols.Http1AndHttp2);
 });
 
 builder.Services.AddControllers();
