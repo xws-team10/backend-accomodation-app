@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace FlyMateAPI.Core.Model
+namespace account_service.Model
 {
     public class UserAddress : Address
     {

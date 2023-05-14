@@ -1,6 +1,6 @@
 ﻿using AspNetCore.Identity.MongoDbCore.Models;
 
-namespace FlyMateAPI.Core.Model
+namespace account_service.Model
 {
 
     public class User : MongoIdentityUser<Guid>

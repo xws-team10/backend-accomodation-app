@@ -1,4 +1,5 @@
-﻿namespace FlyMateAPI.Core.Model
+﻿namespace account_service.Model
+
 {
     public class Address
     {
@@ -8,4 +9,4 @@
         public string StreetNumber { get; set; } = null!;
         public int PostalCode { get; set; }
     }
-}
+} 

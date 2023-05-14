@@ -3,8 +3,8 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using FlyMateAPI.Core.Model;
 using API.Core.Service.Core;
+using account_service.Model;
 
 namespace account_service.Service
 {

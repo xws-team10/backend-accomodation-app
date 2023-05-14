@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FlyMateAPI.Core.Model;
+using account_service.Model;
 
 namespace API.Core.Service.Core
 {
