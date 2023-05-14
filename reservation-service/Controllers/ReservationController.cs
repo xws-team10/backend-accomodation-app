@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using reservation_service.Model;
+using reservation_service.ProtoServices;
 using reservation_service.Service;
 
 namespace reservation_service.Controllers
@@ -9,10 +10,12 @@ namespace reservation_service.Controllers
     public class ReservationController : ControllerBase
     {
         private readonly ReservationService _reservationService;
+        private readonly CheckAccomodations _checkAccomodations;
 
-        public ReservationController(ReservationService reservationService)
+        public ReservationController(ReservationService reservationService, CheckAccomodations checkAccomodations)
         {
             _reservationService = reservationService;
+            _checkAccomodations = checkAccomodations;
         }
 
         [HttpGet]
@@ -47,7 +50,8 @@ namespace reservation_service.Controllers
             if (!IsAvailable(newReservation).Result)
                 return BadRequest();
             
-            // da li je dostupan
+           if (!_checkAccomodations.CheckAccomodadtions(newReservation.AccomodationId, newReservation.StartDate, newReservation.EndDate))
+                return BadRequest();
 
             await _reservationService.CreateAsync(newReservation);
 

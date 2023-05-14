@@ -39,6 +39,7 @@ builder.Services.AddSingleton<ReservationRequestService>();
 
 builder.Services.AddSingleton<ReservationRepository>();
 builder.Services.AddSingleton<ReservationService>();
+builder.Services.AddSingleton<CheckAccomodations>();
 
 builder.Services.AddGrpc();
 builder.Services.Configure<KestrelServerOptions>(options =>

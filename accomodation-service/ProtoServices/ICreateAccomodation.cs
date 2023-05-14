@@ -11,5 +11,7 @@ namespace accomodation_service.ProtoServices
         void UpdateAccomodationPrice(AccomodationChangePriceDto changePriceDto);
 
         bool CheckReservations(Guid id, DateTime startDate, DateTime endDate);
+
+        
     }
 }
