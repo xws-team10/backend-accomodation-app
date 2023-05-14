@@ -1,5 +1,7 @@
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using reservation_service.Model;
+using reservation_service.ProtoServices;
 using reservation_service.Repository;
 using reservation_service.Service;
 
@@ -38,7 +40,15 @@ builder.Services.AddSingleton<ReservationRequestService>();
 builder.Services.AddSingleton<ReservationRepository>();
 builder.Services.AddSingleton<ReservationService>();
 
+builder.Services.AddGrpc();
+builder.Services.Configure<KestrelServerOptions>(options =>
+{
+    options.ConfigureEndpointDefaults(lo => lo.Protocols = HttpProtocols.Http1AndHttp2);
+});
+
 builder.Services.AddControllers();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -57,12 +67,19 @@ if (app.Environment.IsDevelopment())
 app.UseCors(opt =>
 {
     opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000");
+    //opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:5000");
 });
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapGrpcService<GrpcSearchService>();
+});
 
 app.Run();

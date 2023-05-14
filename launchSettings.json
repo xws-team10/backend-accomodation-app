@@ -6,7 +6,8 @@
       "serviceActions": {
         "apigateway": "StartDebugging",
         "reservation-service": "StartDebugging",
-        "search-service": "StartDebugging"
+        "search-service": "StartDebugging",
+        "account-service": "StartDebugging"
       }
     }
   }
