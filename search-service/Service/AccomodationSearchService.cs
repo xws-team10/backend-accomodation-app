@@ -30,7 +30,7 @@ namespace search_service.Service
                 if(accomodation.Price <= price && accomodation.Capacity >= capacity)
                 if(((accomodation.Address.City).ToLower()).Equals(place.ToLower()) || place == "")
                 if(isFree(freeDate,accomodation.Id))
-                if((startDate <= accomodation.AvailableFromDate) && (endDate >= accomodation.AvailableToDate))
+                if((startDate >= accomodation.AvailableFromDate) && (endDate <= accomodation.AvailableToDate))
                     AccomodationsBySearch.Add(accomodation);
             }
             return AccomodationsBySearch;
