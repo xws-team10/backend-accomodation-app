@@ -2,7 +2,7 @@
   "Routes": [
     {
       "UpstreamPathTemplate": "/api/ReservationRequest",
-      "UpstreamHttpMethod": ["Get", "Post"],
+      "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -11,11 +11,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/ReservationRequest"
+      "DownstreamPathTemplate": "/api/ReservationRequest",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/ReservationRequest/{id}",
-      "UpstreamHttpMethod": ["Get", "Put", "Delete"],
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -24,11 +28,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/ReservationRequest/{id}"
+      "DownstreamPathTemplate": "/api/ReservationRequest/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/ReservationRequest/getByGuest/{id}",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -37,11 +45,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/ReservationRequest/getByGuest/{id}"
+      "DownstreamPathTemplate": "/api/ReservationRequest/getByGuest/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/ReservationRequest/getByAccomodation/{id}",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -50,11 +62,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/ReservationRequest/getByAccomodation/{id}"
+      "DownstreamPathTemplate": "/api/ReservationRequest/getByAccomodation/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Reservation",
-      "UpstreamHttpMethod": ["Get", "Post"],
+      "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -63,11 +79,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Reservation"
+      "DownstreamPathTemplate": "/api/Reservation",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Reservation/{id}",
-      "UpstreamHttpMethod": ["Get", "Put", "Delete"],
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -76,11 +96,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Reservation/{id}"
+      "DownstreamPathTemplate": "/api/Reservation/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Reservation/getByGuest/{id}",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -89,11 +113,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Reservation/getByGuest/{id}"
+      "DownstreamPathTemplate": "/api/Reservation/getByGuest/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Reservation/getByAccomodation/{id}",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -102,11 +130,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Reservation/getByAccomodation/{id}"
+      "DownstreamPathTemplate": "/api/Reservation/getByAccomodation/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/AccomodationSearch",
-      "UpstreamHttpMethod": ["Get", "Post"],
+      "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -115,11 +147,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/AccomodationSearch"
+      "DownstreamPathTemplate": "/api/AccomodationSearch",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/AccomodationSearch/getBySearch",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -128,11 +164,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/AccomodationSearch/getBySearch"
+      "DownstreamPathTemplate": "/api/AccomodationSearch/getBySearch",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Accomodation",
-      "UpstreamHttpMethod": ["Get", "Post", "Put"],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -141,11 +181,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Accomodation"
+      "DownstreamPathTemplate": "/api/Accomodation",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Accomodation/{id}",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -154,11 +198,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Accomodation/{id}"
+      "DownstreamPathTemplate": "/api/Accomodation/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Accomodation/availabilityCheck/{id}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put"],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -167,11 +215,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Accomodation/availabilityCheck/{id}"
+      "DownstreamPathTemplate": "/api/Accomodation/availabilityCheck/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Accomodation/change-price",
-      "UpstreamHttpMethod": ["Put"],
+      "UpstreamHttpMethod": [ "Put", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -180,11 +232,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Accomodation/change-price"
+      "DownstreamPathTemplate": "/api/Accomodation/change-price",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Account/login",
-      "UpstreamHttpMethod": ["Post"],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -193,11 +249,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Account/login"
+      "DownstreamPathTemplate": "/api/Account/login",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Account/register",
-      "UpstreamHttpMethod": ["Post"],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -206,11 +266,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Account/register"
+      "DownstreamPathTemplate": "/api/Account/register",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Account/currentUser",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -219,11 +283,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Account/currentUser"
+      "DownstreamPathTemplate": "/api/Account/currentUser",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Account/{username}",
-      "UpstreamHttpMethod": ["Delete"],
+      "UpstreamHttpMethod": [ "Delete", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -232,11 +300,15 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Account/{username}"
+      "DownstreamPathTemplate": "/api/Account/{username}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/Account/update",
-      "UpstreamHttpMethod": ["Put"],
+      "UpstreamHttpMethod": [ "Put", "Options" ],
 
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -245,7 +317,28 @@
           "Port": 80
         }
       ],
-      "DownstreamPathTemplate": "/api/Account/update"
+      "DownstreamPathTemplate": "/api/Account/update",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/Account/roles/add",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/roles/add",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     }
   ],
   "GlobalConfiguration": {

@@ -16,7 +16,7 @@ var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
 {
     MongoDbSettings = new MongoDbSettings
     {
-        ConnectionString = "mongodb://localhost:27017",
+        ConnectionString = "mongodb://reservationdb:27017",
         DatabaseName = "ReservationsDB"
     },
     IdentityOptionsAction = options =>

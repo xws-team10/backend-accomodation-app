@@ -4,6 +4,7 @@ using AspNetCore.Identity.MongoDbCore.Extensions;
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -19,7 +20,7 @@ var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
 {
     MongoDbSettings = new MongoDbSettings
     {
-        ConnectionString = "mongodb://localhost:27017",
+        ConnectionString = "mongodb://accountdb:27017",
         DatabaseName = "AccountDB"
     },
     IdentityOptionsAction = options =>
@@ -99,6 +100,11 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddCors();
 
+builder.Services.Configure<KestrelServerOptions>(options =>
+{
+    options.ConfigureEndpointDefaults(lo => lo.Protocols = HttpProtocols.Http1AndHttp2);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -110,10 +116,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(opt =>
 {
-    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000");
+    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000","*");
 });
 
 app.UseHttpsRedirection();
+
 
 app.UseAuthorization();
 
