@@ -8,7 +8,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "reservation-service",
-          "Port": 80
+          "Port": 5100
         }
       ],
       "DownstreamPathTemplate": "/api/ReservationRequest",
@@ -25,7 +25,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "reservation-service",
-          "Port": 80
+          "Port": 5100
         }
       ],
       "DownstreamPathTemplate": "/api/ReservationRequest/{id}",
@@ -42,7 +42,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "reservation-service",
-          "Port": 80
+          "Port": 5100
         }
       ],
       "DownstreamPathTemplate": "/api/ReservationRequest/getByGuest/{id}",
@@ -59,7 +59,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "reservation-service",
-          "Port": 80
+          "Port": 5100
         }
       ],
       "DownstreamPathTemplate": "/api/ReservationRequest/getByAccomodation/{id}",
@@ -76,7 +76,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "reservation-service",
-          "Port": 80
+          "Port": 5100
         }
       ],
       "DownstreamPathTemplate": "/api/Reservation",
@@ -93,7 +93,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "reservation-service",
-          "Port": 80
+          "Port": 5100
         }
       ],
       "DownstreamPathTemplate": "/api/Reservation/{id}",
@@ -110,7 +110,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "reservation-service",
-          "Port": 80
+          "Port": 5100
         }
       ],
       "DownstreamPathTemplate": "/api/Reservation/getByGuest/{id}",
@@ -127,7 +127,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "reservation-service",
-          "Port": 80
+          "Port": 5100
         }
       ],
       "DownstreamPathTemplate": "/api/Reservation/getByAccomodation/{id}",
@@ -144,7 +144,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "search-service",
-          "Port": 80
+          "Port": 5000
         }
       ],
       "DownstreamPathTemplate": "/api/AccomodationSearch",
@@ -161,7 +161,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "search-service",
-          "Port": 80
+          "Port": 5000
         }
       ],
       "DownstreamPathTemplate": "/api/AccomodationSearch/getBySearch",
@@ -178,7 +178,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "accomodation-service",
-          "Port": 80
+          "Port": 5200
         }
       ],
       "DownstreamPathTemplate": "/api/Accomodation",
@@ -195,7 +195,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "accomodation-service",
-          "Port": 80
+          "Port": 5200
         }
       ],
       "DownstreamPathTemplate": "/api/Accomodation/{id}",
@@ -212,7 +212,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "accomodation-service",
-          "Port": 80
+          "Port": 5200
         }
       ],
       "DownstreamPathTemplate": "/api/Accomodation/availabilityCheck/{id}",
@@ -229,7 +229,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "accomodation-service",
-          "Port": 80
+          "Port": 5200
         }
       ],
       "DownstreamPathTemplate": "/api/Accomodation/change-price",

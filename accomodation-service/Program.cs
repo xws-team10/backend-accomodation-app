@@ -3,6 +3,7 @@ using accomodation_service.Model;
 using accomodation_service.Repository;
 using accomodation_service.Service;
 using accomodation_service.ProtoServices;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,11 @@ var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
 };
 
 builder.Services.AddGrpc();
+builder.Services.Configure<KestrelServerOptions>(options =>
+{
+    options.ListenAnyIP(5201, o => o.Protocols = HttpProtocols.Http2);
+    options.ListenAnyIP(5200, o => o.Protocols = HttpProtocols.Http1);
+});
 
 builder.Services.AddSingleton<AccomodationRepository>();
 builder.Services.AddSingleton<AccomodationService>();

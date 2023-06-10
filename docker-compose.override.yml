@@ -31,33 +31,38 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "AccomodationDatabase:ConnectionString=mongodb://searchdb:27017"
-      - "GrpcSearch=http://localhost:5101"
+      - "GrpcSearch=http://reservation-service:5101"
     depends_on:
       - searchdb
     ports:
       - "5000:80"
+      - "5001:443" 
  
   reservation-service:
     container_name: reservation-service
     environment:
      - ASPNETCORE_ENVIRONMENT=Development
      - "ReservationsDatabase:ConnectionString=mongodb://reservationdb:27017"
+     - "GrpcCheckAccomodations=http://accomodation-service:5201"
     depends_on:
       - reservationdb
     ports:
       - "5100:80"
-      - "5101:80"
+      - "5101:443"
       
 
   accomodation-service:
     container_name: accomodation-service
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "AccomodationDatabase:ConnectionString=mongodb://accomodationdb:27017"
+      - "AccomodationDatabase:ConnectionString=mongodb://accomodationdb:27017"  
+      - "GrpcCreate=http://search-service:5001"
+      - "GrpcCheckReservations=http://reservation-service:5101"
     depends_on:
       - accomodationdb
     ports:
       - "5200:80"
+      - "5201:80"
 
 
   account-service:
