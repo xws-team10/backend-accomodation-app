@@ -45,5 +45,17 @@ namespace reservation_service.Service
         public async Task DeleteAsync(Guid id) =>
             await _repository.DeleteAsync(id);
 
+        public async Task<bool> CanGuestGradeAccomodation(String username, Guid accomodationId)
+        {
+            List<Reservation> guestReservations = await GetAllByGuestUsernameAsync(username);
+
+            foreach (Reservation reservation in guestReservations)
+            {
+                if (reservation.AccomodationId == accomodationId && reservation.EndDate < DateTime.Now)
+                    return true;
+            }
+            return false;
+        }
+
     }
 }

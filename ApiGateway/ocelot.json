@@ -137,6 +137,23 @@
       }
     },
     {
+      "UpstreamPathTemplate": "/api/Reservation/canGuestGradeAccomodation/{username}/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reservation-service",
+          "Port": 5100
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Reservation/canGuestGradeAccomodation/{username}/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
       "UpstreamPathTemplate": "/api/AccomodationSearch",
       "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
 
@@ -233,6 +250,91 @@
         }
       ],
       "DownstreamPathTemplate": "/api/Accomodation/change-price",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/AccomodationGrade",
+      "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accomodation-service",
+          "Port": 5200
+        }
+      ],
+      "DownstreamPathTemplate": "/api/AccomodationGrade",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/AccomodationGrade/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accomodation-service",
+          "Port": 5200
+        }
+      ],
+      "DownstreamPathTemplate": "/api/AccomodationGrade/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/AccomodationGrade/getByGuest/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accomodation-service",
+          "Port": 5200
+        }
+      ],
+      "DownstreamPathTemplate": "/api/AccomodationGrade/getByGuest/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/AccomodationGrade/getByAccomodation/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accomodation-service",
+          "Port": 5200
+        }
+      ],
+      "DownstreamPathTemplate": "/api/AccomodationGrade/getByAccomodation/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/AccomodationGrade/getByGuestAndAccomodation/{username}/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accomodation-service",
+          "Port": 5200
+        }
+      ],
+      "DownstreamPathTemplate": "/api/AccomodationGrade/getByGuestAndAccomodation/{username}/{id}",
       "EnableCors": true,
       "CorsOptions": {
         "PolicyName": "CorsPolicy"

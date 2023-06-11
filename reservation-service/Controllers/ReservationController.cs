@@ -104,5 +104,9 @@ namespace reservation_service.Controllers
             }
             return true;
         }
+
+        [HttpGet("canGuestGradeAccomodation/{username}/{id}")]
+        public async Task<bool> CanGuestGradeAcccomodation(string username, Guid id) =>
+            await _reservationService.CanGuestGradeAccomodation(username, id);
     }
 }
