@@ -1,16 +1,23 @@
 ﻿using reservation_service.Model;
 using reservation_service.Repository;
 using reservation_service.Service.Core;
+using reservation_service;
+using reservation_service.ProtoServices;
 
 namespace reservation_service.Service
 {
     public class ReservationService : IReservationService
     {
         private readonly ReservationRepository _repository;
+        private readonly ReservationRequestRepository _repositoryRequest;
 
-        public ReservationService(ReservationRepository repository)
+        private readonly GetAccomodationByHostServiceClient _client;
+
+
+        public ReservationService(ReservationRepository repository, GetAccomodationByHostServiceClient getAccomodation)
         {
             _repository = repository;
+            _client = getAccomodation;
         }
 
         public async Task<List<Reservation>> GetAllAsync() =>
@@ -56,6 +63,82 @@ namespace reservation_service.Service
             }
             return false;
         }
+
+        public async Task<int> GetReservationCountByHostIdAsync(string hostId)
+        {
+            AccomodationsResponse response = _client.GetAccommodationsByHostId(hostId);
+
+            List<Accomodation> accommodations = response.Accomodation.ToList();
+
+            List<Guid> accommodationIds = accommodations.Select(a => Guid.Parse(a.Id)).ToList();
+
+            List<Reservation> reservations = await _repository.GetAllAsync();
+
+            int reservationCount = reservations.Count(r => accommodationIds.Contains(r.AccomodationId));
+
+            return reservationCount;
+        }
+
+        public async Task<int> GetTotalReservedDaysByHostId(string hostId)
+        {
+            AccomodationsResponse response = _client.GetAccommodationsByHostId(hostId);
+            List<Accomodation> accommodations = response.Accomodation.ToList();
+
+            List<Guid> accommodationIds = accommodations.Select(a => Guid.Parse(a.Id)).ToList();
+
+            List<Reservation> reservations = await _repository.GetAllAsync();
+
+            int totalReservedDays = 0;
+
+            foreach (Reservation reservation in reservations)
+            {
+                if (accommodationIds.Contains(reservation.AccomodationId))
+                {
+                    TimeSpan reservationDuration = reservation.EndDate - reservation.StartDate;
+                    int reservedDays = (int)reservationDuration.TotalDays;
+                    totalReservedDays += reservedDays;
+                }
+            }
+
+            return totalReservedDays;
+        }
+
+        public async Task<double> GetCancellationRateByHostAsync(string hostId)
+        {
+            AccomodationsResponse response = _client.GetAccommodationsByHostId(hostId);
+            List<Accomodation> accommodations = response.Accomodation.ToList();
+
+            List<Guid> accommodationIds = accommodations.Select(a => Guid.Parse(a.Id)).ToList();
+
+            List<ReservationRequest> reservations = await _repositoryRequest.GetAllAsync();
+
+            int totalReservations = 0;
+            int canceledReservations = 0;
+
+            foreach (ReservationRequest reservation in reservations)
+            {
+                if (accommodationIds.Contains(reservation.AccomodationId))
+                {
+                    totalReservations++;
+
+                    if (reservation.Status == Status.REJECTED)
+                    {
+                        canceledReservations++;
+                    }
+                }
+            }
+
+            double cancellationRate = 0;
+
+            if (totalReservations > 0)
+            {
+                cancellationRate = (double)canceledReservations / totalReservations * 100;
+            }
+
+            return cancellationRate;
+        }
+
+
 
     }
 }

@@ -44,5 +44,6 @@ namespace accomodation_service.Service
         {
             await _repository.AccomodationChangePrice(accomodationChangePriceDto);
         }
+
     }
 }
