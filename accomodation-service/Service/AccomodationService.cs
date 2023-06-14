@@ -26,9 +26,9 @@ namespace accomodation_service.Service
         public async Task<Accomodation> GetAccomodationById(Guid id) =>
             await _repository.GetAccomodationById(id);
 
-        public async Task AccomodationUpdate(AccomodationChangeDto accomodationChangeDto)
+        public async Task<bool> AccomodationUpdate(AccomodationChangeDto accomodationChangeDto)
         {
-            await _repository.AccomodationUpdate(accomodationChangeDto);
+            return await _repository.AccomodationUpdate(accomodationChangeDto);
         }
 
         public async Task<bool> AvailabilityCheck(Guid id, DateTime from, DateTime to)
@@ -43,6 +43,11 @@ namespace accomodation_service.Service
         public async Task AccomodationChangePrice(AccomodationChangePriceDto accomodationChangePriceDto)
         {
             await _repository.AccomodationChangePrice(accomodationChangePriceDto);
+        }
+
+        public async Task DeleteAccomodation(Guid id)
+        {
+            await _repository.DeleteAccomodation(id);
         }
     }
 }

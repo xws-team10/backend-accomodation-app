@@ -24,7 +24,7 @@ namespace accomodation_service.ProtoServices
             Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcCheckReservations"]} ");
             var channel = GrpcChannel.ForAddress(_configuration["GrpcCheckReservations"]);
             var client = new GrpcCheckReservations.GrpcCheckReservationsClient(channel);
-            var request = new CheckReservationsRequest { Id = id.ToString(), StartDate = startDate.ToString(), EndDate = endDate.ToString()};
+            var request = new CheckReservationsRequest { Id = id.ToString(), StartDate = startDate.ToString(), EndDate = endDate.ToString() };
 
             try
             {
@@ -38,7 +38,7 @@ namespace accomodation_service.ProtoServices
             }
         }
 
-        public void CreateNewAccomodation(Guid Id, string Name, string Description, int Price, int Capacity, string Country, string City, string Street, string StreetNumber, DateTime AvailableFromDate, DateTime AvailableToDate)
+        public bool CreateNewAccomodation(Guid Id, string Name, string Description, int Price, int Capacity, string Country, string City, string Street, string StreetNumber, DateTime AvailableFromDate, DateTime AvailableToDate)
         {
             Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcCreate"]} ");
             var channel = GrpcChannel.ForAddress(_configuration["GrpcCreate"]);
@@ -48,14 +48,17 @@ namespace accomodation_service.ProtoServices
             try
             {
                 var reply = client.CreateNewAccomodation(request);
+                return reply.Success;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"--> Couldnot call GRPC Server {ex.Message}");
+                return false;
             }
+
         }
 
-        public void UpdateAccomodation(Guid Id, DateTime AvailableFromDate, DateTime AvailableToDate)
+        public bool UpdateAccomodation(Guid Id, DateTime AvailableFromDate, DateTime AvailableToDate)
         {
             Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcCreate"]} ");
             var channel = GrpcChannel.ForAddress(_configuration["GrpcCreate"]);
@@ -64,10 +67,12 @@ namespace accomodation_service.ProtoServices
             try
             {
                 var reply = client.UpdateAccomodation(request);
+                return reply.Success;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"--> Couldnot call GRPC Server {ex.Message}");
+                return false;
             }
         }
 
