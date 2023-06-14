@@ -20,9 +20,9 @@ namespace search_service.ProtoServices
             _mapper = mapper;
         }
 
-        public override Task<CreateResponse> CreateNewAccomodation(CreateRequest request, ServerCallContext context)
+        public override async Task<CreateResponse> CreateNewAccomodation(CreateRequest request, ServerCallContext context)
         {
-            var response = new AccomodationResponse();
+            var response = new CreateResponse();
             Accomodation accomodation = new Accomodation();
             accomodation.Id = Guid.Parse(request.Id);
             accomodation.Name = request.Name;
@@ -32,20 +32,38 @@ namespace search_service.ProtoServices
             accomodation.Address = new Address(request.Country, request.City, request.Street, request.StreetNumber);
             accomodation.AvailableFromDate = DateTime.Parse(request.AvailableFromDate);
             accomodation.AvailableToDate = DateTime.Parse(request.AvailableToDate);
-
-            _reservationRepository.CreateAsync(accomodation).Wait();
-
-            return null;
+            try
+            {
+                _reservationRepository.CreateAsync(accomodation).Wait();
+                response.Success = true;
+                return await Task.FromResult(response);
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                return await Task.FromResult(response);
+            } 
         }
 
         public override async Task<UpdateResponse> UpdateAccomodation(UpdateRequest request, ServerCallContext context)
         {
+            var response = new UpdateResponse();
             AccomodationUpdateDto accomodationUpdateDto = new AccomodationUpdateDto();
             accomodationUpdateDto.Id = Guid.Parse(request.Id);
             accomodationUpdateDto.AvailableFromDate = DateTime.Parse(request.AvailableFromDate);
             accomodationUpdateDto.AvailableToDate = DateTime.Parse(request.AvailableToDate);
-
-            _reservationRepository.AccomodationUpdate(accomodationUpdateDto).Wait();
+            try
+            {
+                _reservationRepository.AccomodationUpdate(accomodationUpdateDto).Wait();
+                response.Success = true;
+                return await Task.FromResult(response);
+            }
+            catch(Exception ex)
+            {
+                response.Success = false;
+                return await Task.FromResult(response);
+            }
+            
 
             return null;
         }

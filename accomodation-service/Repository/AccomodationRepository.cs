@@ -38,7 +38,7 @@ namespace accomodation_service.Repository
             
         }
 
-        public async Task AccomodationUpdate(AccomodationChangeDto accomodationChangeDto)
+        public async Task<bool> AccomodationUpdate(AccomodationChangeDto accomodationChangeDto)
         {
             var accomodation = _accomodationsCollection.Find(x => x.Id == accomodationChangeDto.Id).FirstOrDefault();
             if(accomodation != null)
@@ -48,13 +48,13 @@ namespace accomodation_service.Repository
                 if(accomodation.AvailabilityInitialValidate())
                 {
                     await _accomodationsCollection.ReplaceOneAsync(x => x.Id == accomodation.Id, accomodation);
-                    return;
+                    return true;
                 }
 
-                throw new Exception("Invalid date time!");
+                return false;
             }
 
-            throw new ArgumentNullException(nameof(accomodationChangeDto));
+            return false;
         }
 
         public async Task AccomodationChangePrice(AccomodationChangePriceDto accomodationChangePriceDto)
@@ -68,6 +68,15 @@ namespace accomodation_service.Repository
             }
 
             throw new ArgumentNullException(nameof(accomodationChangePriceDto));
+        }
+
+        public async Task DeleteAccomodation(Guid id)
+        {
+            var result = await _accomodationsCollection.DeleteOneAsync(x => x.Id == id);
+            if (result.DeletedCount == 0)
+            {
+                throw new Exception("Accomodation not found!");
+            }
         }
     }
 }

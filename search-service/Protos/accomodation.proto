@@ -39,7 +39,9 @@ message CreateRequest {
     string AvailableToDate = 11;
 }
 
-message CreateResponse{}
+message CreateResponse{ 
+	bool success = 1;
+}
 
 message UpdateRequest {
 	string Id = 1;
@@ -47,7 +49,9 @@ message UpdateRequest {
     string AvailableToDate = 3;
 }
 
-message UpdateResponse{}
+message UpdateResponse{
+	bool success = 1;
+}
 
 message UpdatePriceRequest {
 	string Id = 1;

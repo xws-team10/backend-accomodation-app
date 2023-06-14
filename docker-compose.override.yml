@@ -96,6 +96,26 @@ services:
     depends_on:
       - reservationdb
 
+  mongo-express2:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8083:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: accomodationdb
+    depends_on:
+      - accomodationdb
+
+  mongo-express3:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8084:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: accountdb
+    depends_on:
+      - accountdb
+
   apigateway:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
