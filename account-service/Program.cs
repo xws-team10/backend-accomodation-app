@@ -1,4 +1,5 @@
 using account_service.Model;
+using account_service.Repository;
 using account_service.Service;
 using AspNetCore.Identity.MongoDbCore.Extensions;
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
@@ -64,6 +65,9 @@ builder.Services.AddAuthentication(x =>
         ClockSkew = TimeSpan.Zero,
     };
 });
+
+builder.Services.AddSingleton<HostGradeRepository>();
+builder.Services.AddSingleton<HostGradeService>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<TokenService>();
