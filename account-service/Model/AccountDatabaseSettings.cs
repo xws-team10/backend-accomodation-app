@@ -6,5 +6,6 @@
         public string DatabaseName { get; set; } = null!;
         public string AccountCollectionName { get; set; } = null!;
         public string AccountRequestsCollectionName { get; set; } = null!;
+        public string HostGradesCollectionName { get; set; } = null!;
     }
 }
