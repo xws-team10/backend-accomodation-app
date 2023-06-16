@@ -23,6 +23,8 @@ namespace notification_service.Repository
 
         public async Task<List<Notification>> GetAllByUserAsync(Guid id) =>
             await _notificationsCollection.Find(x => x.UserId.Equals(id)).ToListAsync();
+        public async Task<List<Notification>> GetUnreadByUserAsync(Guid id) =>
+            await _notificationsCollection.Find(x => x.UserId.Equals(id) && !x.IsRead).ToListAsync();
 
         public async Task CreateAsync(Notification newNotification) =>
             await _notificationsCollection.InsertOneAsync(newNotification);

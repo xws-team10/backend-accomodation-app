@@ -348,7 +348,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/HostGrade",
@@ -365,7 +365,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/HostGrade/{id}",
@@ -382,7 +382,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/HostGrade/getByGuest/{id}",
@@ -399,7 +399,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/HostGrade/getByGuestAndHost/{username}/{id}",
@@ -416,7 +416,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/HostGrade/getByHost/{id}",
@@ -433,7 +433,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/login",
@@ -450,7 +450,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/register",
@@ -467,7 +467,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/currentUser",
@@ -484,7 +484,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/{username}",
@@ -501,7 +501,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/update",
@@ -518,7 +518,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/roles/add",
@@ -562,7 +562,7 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/api/Notification/getByUser/{id}",
+      "UpstreamPathTemplate": "/api/Notification/getAllByUser/{id}",
       "UpstreamHttpMethod": [ "Get", "Options" ],
 
       "DownstreamScheme": "http",
@@ -572,7 +572,24 @@
           "Port": 5400
         }
       ],
-      "DownstreamPathTemplate": "/api/Notification/getByUser/{id}",
+      "DownstreamPathTemplate": "/api/Notification/getAllByUser/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/Notification/getUnreadByUser/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification-service",
+          "Port": 5400
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Notification/getUnreadByUser/{id}",
       "EnableCors": true,
       "CorsOptions": {
         "PolicyName": "CorsPolicy"

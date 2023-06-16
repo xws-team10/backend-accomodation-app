@@ -5,7 +5,7 @@ namespace accomodation_service.ProtoServices
 {
     public interface ICreateAccomodation
     {
-        bool CreateNewAccomodation(Guid Id, string Name, string Description, int Price, int Capacity, string Country, string City, string Street, string StreetNumber, DateTime AvailableFromDate, DateTime AvailableToDate);
+        bool CreateNewAccomodation(Guid Id, Guid HostId, string Name, string Description, int Price, int Capacity, string Country, string City, string Street, string StreetNumber, DateTime AvailableFromDate, DateTime AvailableToDate);
         bool UpdateAccomodation(Guid Id, DateTime AvailableFromDate, DateTime AvailableToDate);
 
         void UpdateAccomodationPrice(AccomodationChangePriceDto changePriceDto);

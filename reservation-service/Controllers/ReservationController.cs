@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using accomodation_service;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using reservation_service.Model;
 using reservation_service.ProtoServices;
 using reservation_service.Service;
@@ -11,11 +13,19 @@ namespace reservation_service.Controllers
     {
         private readonly ReservationService _reservationService;
         private readonly CheckAccomodations _checkAccomodations;
+        private readonly GetAccomodationHost _getAccomodationHost;
+        private readonly SendNotification _sendNotification;
 
-        public ReservationController(ReservationService reservationService, CheckAccomodations checkAccomodations)
+        public ReservationController(
+            ReservationService reservationService,
+            CheckAccomodations checkAccomodations,
+            GetAccomodationHost getAccomodationHost,
+            SendNotification sendNotification)
         {
             _reservationService = reservationService;
             _checkAccomodations = checkAccomodations;
+            _getAccomodationHost = getAccomodationHost;
+            _sendNotification = sendNotification;
         }
 
         [HttpGet]
@@ -88,6 +98,9 @@ namespace reservation_service.Controllers
                 return BadRequest();
 
             await _reservationService.DeleteAsync(id);
+
+            AccomodationHostResponse host = _getAccomodationHost.GetHost(reservation.AccomodationId);
+            _sendNotification.CreateNotification("Reservation for " + host.AccomodationName + " has been deleted.", new Guid(host.HostId), 1);
 
             return NoContent();
         }

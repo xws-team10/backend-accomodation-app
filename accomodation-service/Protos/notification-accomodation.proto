@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "notification_service";
+
+service GrpcAccomodationNotifications {
+	rpc SendNotification (AccomodationNotificationRequest) returns (AccomodationNotificationResponse);
+}
+
+message AccomodationNotificationRequest{
+	string text = 1;
+	string userId = 2;
+	int32 type = 3;
+}
+
+message AccomodationNotificationResponse {
+	bool created = 1;
+}

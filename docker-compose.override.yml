@@ -49,7 +49,10 @@ services:
     environment:
      - ASPNETCORE_ENVIRONMENT=Development
      - "ReservationsDatabase:ConnectionString=mongodb://reservationdb:27017"
+     - "GrpcGetUserId=http://account-service:5301"
+     - "GrpcGetAccomodationHost=http://accomodation-service:5201"
      - "GrpcCheckAccomodations=http://accomodation-service:5201"
+     - "GrpcReservationNotifications=http://notification-service:5401" 
     depends_on:
       - reservationdb
     ports:
@@ -63,6 +66,7 @@ services:
       - "AccomodationDatabase:ConnectionString=mongodb://accomodationdb:27017"  
       - "GrpcCreate=http://search-service:5001"
       - "GrpcCheckReservations=http://reservation-service:5101"
+      - "GrpcAccomodationNotifications=http://notification-service:5401"
     depends_on:
       - accomodationdb
     ports:
@@ -74,10 +78,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "AccountDatabase:ConnectionString=mongodb://accountdb:27017"
+      - "GrpcAccountNotifications=http://notification-service:5401" 
     depends_on:
       - accountdb
     ports:
       - "5300:80"
+      - "5301:80" 
       
   notification-service:
     container_name: notification-service

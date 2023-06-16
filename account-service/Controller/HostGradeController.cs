@@ -1,4 +1,5 @@
 ﻿using account_service.Model;
+using account_service.ProtoServices;
 using account_service.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,12 @@ namespace account_service.Controller
     public class HostGradeController : ControllerBase
     {
         private readonly HostGradeService _hostGradeService;
+        private readonly SendNotification _sendNotification;
 
-        public HostGradeController(HostGradeService hostGradeService)
+        public HostGradeController(HostGradeService hostGradeService, SendNotification sendNotification)
         {
             _hostGradeService = hostGradeService;
+            _sendNotification = sendNotification;
         }
 
         [HttpGet]
@@ -49,6 +52,7 @@ namespace account_service.Controller
                 return BadRequest();
 
             await _hostGradeService.CreateAsync(newHostGrade);
+            _sendNotification.CreateNotification("A guest has graded you.", newHostGrade.HostId, 2);
             return CreatedAtAction(nameof(Get), new { id = newHostGrade.Id }, newHostGrade);
         }
 

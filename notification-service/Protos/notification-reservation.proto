@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "notification_service";
+
+service GrpcReservationNotifications {
+	rpc SendNotification (NotificationRequest) returns (NotificationResponse);
+}
+
+message NotificationRequest{
+	string text = 1;
+	string userId = 2;
+	int32 type = 3;
+}
+
+message NotificationResponse {
+	bool created = 1;
+}

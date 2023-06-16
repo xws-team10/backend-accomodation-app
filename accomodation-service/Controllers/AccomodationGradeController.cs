@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using accomodation_service.Model;
 using accomodation_service.Service;
+using accomodation_service.ProtoServices;
 
 namespace accomodation_service.Controllers
 {
@@ -9,10 +10,17 @@ namespace accomodation_service.Controllers
     public class AccomodationGradeController : ControllerBase
     {
         private readonly AccomodationGradeService _accomodationGradeService;
+        private readonly AccomodationService _accomodationService;
+        private readonly SendNotification _sendNotification;
 
-        public AccomodationGradeController(AccomodationGradeService accomodationGradeService)
+        public AccomodationGradeController(
+            AccomodationGradeService accomodationGradeService,
+            AccomodationService accomodationService,
+            SendNotification sendNotification)
         {
             _accomodationGradeService = accomodationGradeService;
+            _accomodationService = accomodationService;
+            _sendNotification = sendNotification;
         }
 
         [HttpGet]
@@ -50,6 +58,9 @@ namespace accomodation_service.Controllers
 
             await _accomodationGradeService.CreateAsync(newAccomodationGrade);
 
+            Accomodation accomodation = await _accomodationService.GetAccomodationById(newAccomodationGrade.AccomodationId);
+            _sendNotification.CreateNotification("A guest has graded your accomodation " + accomodation.Name, accomodation.HostId, 3);
+            
             return CreatedAtAction(nameof(Get), new { id = newAccomodationGrade.Id }, newAccomodationGrade);
         }
 

@@ -58,7 +58,7 @@ namespace accomodation_service.Controllers
             if (!accomodationModel.AvailabilityInitialValidate()) return BadRequest(new ProblemDetails { Title = "Date time is not valid!" });
             {
                 await _service.CreateAsync(accomodationModel);
-                createAccomodation.CreateNewAccomodation(accomodationModel.Id, accomodationModel.Name, accomodationModel.Description, accomodationModel.Price, accomodationModel.MaxCapacity, accomodationModel.Address.Country, accomodationModel.Address.City,
+                createAccomodation.CreateNewAccomodation(accomodationModel.Id, accomodationModel.HostId, accomodationModel.Name, accomodationModel.Description, accomodationModel.Price, accomodationModel.MaxCapacity, accomodationModel.Address.Country, accomodationModel.Address.City,
                 accomodationModel.Address.Street, accomodationModel.Address.StreetNumber, accomodationModel.AvailableFromDate, accomodationModel.AvailableToDate);
             }
 

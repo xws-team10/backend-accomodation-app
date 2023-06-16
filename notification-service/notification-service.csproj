@@ -29,7 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ProtoServices\" />
+    <Folder Include="Protos\" />
+    <Protobuf Include="Protos\notification-reservation.proto" GrpcServices="Both"></Protobuf>
+    <Protobuf Include="Protos\notification-account.proto" GrpcServices="Both"></Protobuf>
+    <Protobuf Include="Protos\notification-accomodation.proto" GrpcServices="Both"></Protobuf>
   </ItemGroup>
 
 </Project>

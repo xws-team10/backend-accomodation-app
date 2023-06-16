@@ -30,8 +30,11 @@
   </ItemGroup>
 
 	<ItemGroup>
+    <Protobuf Include="Protos\account.proto" GrpcServices="Both"></Protobuf>
 		<Protobuf Include="Protos\accomodation.proto" GrpcServices="Both"></Protobuf>
+    <Protobuf Include="Protos\accomodation-host.proto" GrpcServices="Both"></Protobuf>
 		<Protobuf Include="Protos\reservation.proto" GrpcServices="Both"></Protobuf>
+    <Protobuf Include="Protos\notification-reservation.proto" GrpcServices="Both"></Protobuf>
 	</ItemGroup>
 
 </Project>

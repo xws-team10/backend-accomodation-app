@@ -38,12 +38,12 @@ namespace accomodation_service.ProtoServices
             }
         }
 
-        public bool CreateNewAccomodation(Guid Id, string Name, string Description, int Price, int Capacity, string Country, string City, string Street, string StreetNumber, DateTime AvailableFromDate, DateTime AvailableToDate)
+        public bool CreateNewAccomodation(Guid Id, Guid HostId, string Name, string Description, int Price, int Capacity, string Country, string City, string Street, string StreetNumber, DateTime AvailableFromDate, DateTime AvailableToDate)
         {
             Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcCreate"]} ");
             var channel = GrpcChannel.ForAddress(_configuration["GrpcCreate"]);
             var client = new GrpcCreate.GrpcCreateClient(channel);
-            var request = new CreateRequest { Id = Id.ToString(), Name = Name, Description = Description, Price = Price, Capacity = Capacity, Country = Country, City = City, Street = Street, StreetNumber = StreetNumber, AvailableFromDate = AvailableFromDate.ToString(), AvailableToDate = AvailableToDate.ToString()  };
+            var request = new CreateRequest { Id = Id.ToString(), HostId = HostId.ToString(), Name = Name, Description = Description, Price = Price, Capacity = Capacity, Country = Country, City = City, Street = Street, StreetNumber = StreetNumber, AvailableFromDate = AvailableFromDate.ToString(), AvailableToDate = AvailableToDate.ToString()  };
 
             try
             {

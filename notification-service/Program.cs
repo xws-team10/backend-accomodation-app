@@ -1,6 +1,7 @@
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using notification_service.Model;
+using notification_service.ProtoServices;
 using notification_service.Repository;
 using notification_service.Service;
 
@@ -76,6 +77,9 @@ app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
+    endpoints.MapGrpcService<GrpcReservationNotificationsService>();
+    endpoints.MapGrpcService<GrpcAccountNotificationService>();
+    endpoints.MapGrpcService<GrpcAccomodationNotificationsService>();
 });
 
 app.Run();

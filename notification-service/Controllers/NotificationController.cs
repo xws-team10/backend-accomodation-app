@@ -30,9 +30,13 @@ namespace notification_service.Controllers
             return notification;
         }
 
-        [HttpGet("getByUser/{id}")]
-        public async Task<List<Notification>> GetByUser(Guid id) =>
+        [HttpGet("getAllByUser/{id}")]
+        public async Task<List<Notification>> GetAllByUser(Guid id) =>
            await _notificationService.GetAllByUserAsync(id);
+
+        [HttpGet("getUnreadByUser/{id}")]
+        public async Task<List<Notification>> GetUnreadByUser(Guid id) =>
+           await _notificationService.GetUnreadByUserAsync(id);
 
         [HttpPost]
         public async Task<IActionResult> Post(Notification newNotification)
