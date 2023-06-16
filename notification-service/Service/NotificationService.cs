@@ -39,7 +39,7 @@ namespace notification_service.Service
                 types.Add(NotificationType.RESERVATION_REQUEST_REPLY);
 
             List<Notification> allNotifications = await _repository.GetAllByUserAsync(id);
-            List<Notification> filteredNotifications = (List<Notification>)allNotifications.Where(n => types.Contains(n.Type));
+            List<Notification> filteredNotifications = allNotifications.FindAll(n => types.Contains(n.Type));
 
             return filteredNotifications;
         }

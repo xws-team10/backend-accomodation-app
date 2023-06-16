@@ -137,10 +137,9 @@ app.UseCors(opt =>
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
 
 app.UseAuthorization();
-
-app.UseRouting();
 
 app.UseEndpoints(endpoints =>
 {

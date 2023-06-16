@@ -33,8 +33,10 @@ var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
     }
 };
 
+builder.Services.AddSingleton<NotificationUserSettingsRepository>();
 builder.Services.AddSingleton<NotificationRepository>();
 
+builder.Services.AddSingleton<NotificationUserSettingsService>();
 builder.Services.AddSingleton<NotificationService>();
 
 builder.Services.AddGrpc();
