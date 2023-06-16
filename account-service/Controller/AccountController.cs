@@ -47,6 +47,7 @@ namespace account_service.Controller
 
             return new UserDto
             {
+                Id = user.Id,
                 Email = user.Email,
                 Token = await _tokenService.GenerateToken(user),
                 UserRole = user.UserRole,

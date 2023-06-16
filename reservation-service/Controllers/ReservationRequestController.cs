@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using accomodation_service;
+using Microsoft.AspNetCore.Mvc;
 using reservation_service.Model;
 using reservation_service.ProtoServices;
 using reservation_service.Service;
@@ -11,14 +12,25 @@ namespace reservation_service.Controllers
     {
         private readonly ReservationRequestService _reservationRequestService;
         private readonly ReservationService _reservationService;
+        private readonly GetUserId _getUserId;
         private readonly CheckAccomodations _checkAccomodations;
+        private readonly GetAccomodationHost _getAccomodationHost;
+        private readonly SendNotification _sendNotification;
 
-        public ReservationRequestController(ReservationRequestService reservationRequestService, ReservationService reservationService, CheckAccomodations checkAccomodations)
+        public ReservationRequestController(
+            ReservationRequestService reservationRequestService,
+            ReservationService reservationService,
+            GetUserId userId,
+            CheckAccomodations checkAccomodations,
+            GetAccomodationHost getAccomodationHost,
+            SendNotification sendNotification)
         {
             _reservationRequestService = reservationRequestService;
             _reservationService = reservationService;
+            _getUserId = userId;
             _checkAccomodations = checkAccomodations;
-            
+            _getAccomodationHost = getAccomodationHost;
+            _sendNotification = sendNotification;
         }
 
         [HttpGet]
@@ -71,6 +83,11 @@ namespace reservation_service.Controllers
                 {
                     await _reservationService.CreateAsync(newReservation);
                     await RejectOthers(newReservationRequest);
+
+                    Guid? userId = _getUserId.GetUserByUsername(newReservationRequest.GuestUsername);
+
+                    if (userId != null)
+                        _sendNotification.CreateNotification("Reservation request has been replied to.", (Guid)userId, 5);
                 }
                 else
                     return BadRequest();
@@ -78,6 +95,8 @@ namespace reservation_service.Controllers
 
 
             await _reservationRequestService.CreateAsync(newReservationRequest);
+            AccomodationHostResponse host = _getAccomodationHost.GetHost(newReservationRequest.AccomodationId);
+            _sendNotification.CreateNotification("New reservation request for " + host.AccomodationName, new Guid(host.HostId), 0);
 
             return CreatedAtAction(nameof(Get), new { id = newReservationRequest.Id }, newReservationRequest);
         }
@@ -109,6 +128,11 @@ namespace reservation_service.Controllers
                 {
                     await _reservationService.CreateAsync(newReservation);
                     await RejectOthers(updateReservationRequest);
+
+                    Guid? userId = _getUserId.GetUserByUsername(updateReservationRequest.GuestUsername);
+
+                    if (userId != null)
+                        _sendNotification.CreateNotification("Reservation request has been replied to.", (Guid)userId, 5);
                 }
                 else
                     return BadRequest();

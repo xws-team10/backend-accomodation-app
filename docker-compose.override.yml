@@ -26,6 +26,12 @@ services:
     ports:
      - "18008:27017"
 
+  notificationdb:
+    container_name: notificationdb
+    restart: always
+    ports:
+     - "18009:27017"
+
   search-service:
     container_name: search-service
     environment:
@@ -43,14 +49,16 @@ services:
     environment:
      - ASPNETCORE_ENVIRONMENT=Development
      - "ReservationsDatabase:ConnectionString=mongodb://reservationdb:27017"
+     - "GrpcGetUserId=http://account-service:5301"
+     - "GrpcGetAccomodationHost=http://accomodation-service:5201"
      - "GrpcCheckAccomodations=http://accomodation-service:5201"
+     - "GrpcReservationNotifications=http://notification-service:5401" 
     depends_on:
       - reservationdb
     ports:
       - "5100:80"
       - "5101:443"
       
-
   accomodation-service:
     container_name: accomodation-service
     environment:
@@ -58,23 +66,35 @@ services:
       - "AccomodationDatabase:ConnectionString=mongodb://accomodationdb:27017"  
       - "GrpcCreate=http://search-service:5001"
       - "GrpcCheckReservations=http://reservation-service:5101"
+      - "GrpcAccomodationNotifications=http://notification-service:5401"
     depends_on:
       - accomodationdb
     ports:
       - "5200:80"
       - "5201:80"
-
-
+      
   account-service:
     container_name: account-service
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "AccountDatabase:ConnectionString=mongodb://accountdb:27017"
+      - "GrpcAccountNotifications=http://notification-service:5401" 
     depends_on:
       - accountdb
     ports:
       - "5300:80"
-
+      - "5301:80" 
+      
+  notification-service:
+    container_name: notification-service
+    environment:
+     - ASPNETCORE_ENVIRONMENT=Development
+     - "NotificationsDatabase:ConnectionString=mongodb://notificationdb:27017"
+    depends_on:
+      - notificationdb
+    ports:
+      - "5400:80"
+      - "5401:443"
 
   mongo-express:
     image: mongo-express
@@ -115,6 +135,16 @@ services:
       ME_CONFIG_MONGODB_SERVER: accountdb
     depends_on:
       - accountdb
+
+  mongo-express4:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8085:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: notificationdb
+    depends_on:
+      - notificationdb
 
   apigateway:
     environment:

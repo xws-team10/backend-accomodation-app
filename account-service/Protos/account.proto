@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "account_service";
+
+service GrpcGetUserId {
+	rpc GetUserId (UserIdRequest) returns (UserIdResponse);
+}
+
+message UserIdRequest{
+	string username = 1;
+}
+
+message UserIdResponse {
+	string userId = 1;
+}

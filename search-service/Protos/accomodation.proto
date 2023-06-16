@@ -27,16 +27,17 @@ service GrpcCreate {
 
 message CreateRequest {
 	string Id = 1;
-	string Name = 2;
-	string Description = 3;
-    int32 Price = 4;
-    int32 Capacity = 5;
-    string Country = 6;
-    string City = 7;
-    string Street = 8;
-    string StreetNumber = 9;
-    string AvailableFromDate = 10;
-    string AvailableToDate = 11;
+    string HostId = 2;
+	string Name = 3;
+	string Description = 4;
+    int32 Price = 5;
+    int32 Capacity = 6;
+    string Country = 7;
+    string City = 8;
+    string Street = 9;
+    string StreetNumber = 10;
+    string AvailableFromDate = 11;
+    string AvailableToDate = 12;
 }
 
 message CreateResponse{ 
