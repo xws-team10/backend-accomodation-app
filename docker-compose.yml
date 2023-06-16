@@ -13,6 +13,9 @@ services:
   accountdb:
     image: mongo
 
+  notificationdb:
+    image: mongo
+
   search-service:
     image: ${DOCKER_REGISTRY-}searchservice
     build:
@@ -44,10 +47,15 @@ services:
       context: .
       dockerfile: accomodation-service\Dockerfile
 
-
   account-service:
     image: ${DOCKER_REGISTRY-}accountservice
     build:
       context: .
       dockerfile: account-service\Dockerfile
+
+  notification-service:
+    image: ${DOCKER_REGISTRY-}notificationservice
+    build:
+      context: .
+      dockerfile: notification-service\Dockerfile
 

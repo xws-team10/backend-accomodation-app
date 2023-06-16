@@ -526,6 +526,57 @@
       "CorsOptions": {
         "PolicyName": "CorsPolicy"
       }
+    },
+    {
+      "UpstreamPathTemplate": "/api/Notification",
+      "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification-service",
+          "Port": 5400
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Notification",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/Notification/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification-service",
+          "Port": 5400
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Notification/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/Notification/getByUser/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification-service",
+          "Port": 5400
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Notification/getByUser/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
     }
   ],
   "GlobalConfiguration": {
