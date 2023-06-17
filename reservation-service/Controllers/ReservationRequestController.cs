@@ -87,7 +87,7 @@ namespace reservation_service.Controllers
                     Guid? userId = _getUserId.GetUserByUsername(newReservationRequest.GuestUsername);
 
                     if (userId != null)
-                        _sendNotification.CreateNotification("Reservation request has been replied to.", (Guid)userId, 5);
+                        _sendNotification.CreateNotification("Reservation request has been approved.", (Guid)userId, 5);
                 }
                 else
                     return BadRequest();
@@ -132,10 +132,17 @@ namespace reservation_service.Controllers
                     Guid? userId = _getUserId.GetUserByUsername(updateReservationRequest.GuestUsername);
 
                     if (userId != null)
-                        _sendNotification.CreateNotification("Reservation request has been replied to.", (Guid)userId, 5);
+                        _sendNotification.CreateNotification("Reservation request has been approved.", (Guid)userId, 5);
                 }
                 else
                     return BadRequest();
+            }
+            else if (updateReservationRequest.Status.Equals(Status.REJECTED))
+            {
+                Guid? userId = _getUserId.GetUserByUsername(updateReservationRequest.GuestUsername);
+
+                if (userId != null)
+                    _sendNotification.CreateNotification("Reservation request has been rejected.", (Guid)userId, 5);
             }
 
             await _reservationRequestService.UpdateAsync(id, updateReservationRequest);

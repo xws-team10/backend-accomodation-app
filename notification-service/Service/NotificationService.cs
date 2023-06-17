@@ -21,7 +21,10 @@ namespace notification_service.Service
         public async Task<Notification> GetByIdAsync(Guid id) =>
             await _repository.GetByIdAsync(id);
 
-        public async Task<List<Notification>> GetAllByUserAsync(Guid id)
+        public async Task<List<Notification>> GetAllByUserAsync(Guid id) =>
+            await _repository.GetAllByUserAsync(id);
+
+        public async Task<List<Notification>> GetUnreadByUserAsync(Guid id)
         {
             NotificationUserSettings userSettings = await _notificationUserSettingsService.GetByUserAsync(id);
             List<NotificationType> types = new List<NotificationType>();
@@ -38,14 +41,11 @@ namespace notification_service.Service
             if (userSettings.showReservationRequestReply)
                 types.Add(NotificationType.RESERVATION_REQUEST_REPLY);
 
-            List<Notification> allNotifications = await _repository.GetAllByUserAsync(id);
+            List<Notification> allNotifications = await _repository.GetUnreadByUserAsync(id);
             List<Notification> filteredNotifications = allNotifications.FindAll(n => types.Contains(n.Type));
 
             return filteredNotifications;
         }
-
-        public async Task<List<Notification>> GetUnreadByUserAsync(Guid id) =>
-            await _repository.GetUnreadByUserAsync(id);
 
         public async Task CreateAsync(Notification newNotification) =>
             await _repository.CreateAsync(newNotification);
