@@ -33,6 +33,7 @@
 	<ItemGroup>
 		<Protobuf Include="Protos\accomodation.proto" GrpcServices="Both"></Protobuf>
 		<Protobuf Include="Protos\reservation.proto" GrpcServices="Both"></Protobuf>
+		<Protobuf Include="Protos\host.proto" GrpcServices="Both"></Protobuf>
 	</ItemGroup>
 
 </Project>

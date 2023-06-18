@@ -1,4 +1,5 @@
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
+using host_service;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using reservation_service.Model;
 using reservation_service.ProtoServices;
@@ -40,6 +41,7 @@ builder.Services.AddSingleton<ReservationRequestService>();
 builder.Services.AddSingleton<ReservationRepository>();
 builder.Services.AddSingleton<ReservationService>();
 builder.Services.AddSingleton<CheckAccomodations>();
+builder.Services.AddSingleton<GetAccomodationByHostServiceClient>();
 
 builder.Services.AddGrpc();
 builder.Services.Configure<KestrelServerOptions>(options =>

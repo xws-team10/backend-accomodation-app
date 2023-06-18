@@ -1,7 +1,7 @@
 ﻿using reservation_service.Model;
 using reservation_service.Repository;
 using reservation_service.Service.Core;
-using reservation_service;
+using host_service;
 using reservation_service.ProtoServices;
 
 namespace reservation_service.Service
@@ -14,10 +14,12 @@ namespace reservation_service.Service
         private readonly GetAccomodationByHostServiceClient _client;
 
 
-        public ReservationService(ReservationRepository repository, GetAccomodationByHostServiceClient getAccomodation)
+        public ReservationService(ReservationRepository repository, GetAccomodationByHostServiceClient getAccomodation,
+            ReservationRequestRepository repositoryRequest)
         {
             _repository = repository;
             _client = getAccomodation;
+            _repositoryRequest = repositoryRequest;
         }
 
         public async Task<List<Reservation>> GetAllAsync() =>
@@ -67,8 +69,15 @@ namespace reservation_service.Service
         public async Task<int> GetReservationCountByHostIdAsync(string hostId)
         {
             AccomodationsResponse response = _client.GetAccommodationsByHostId(hostId);
-
-            List<Accomodation> accommodations = response.Accomodation.ToList();
+            /*
+            if (response == null || response.Accomodation == null)
+            {
+                Console.WriteLine(response);
+                // Return a default reservation count when response or accommodations are null
+                return 0;
+            }
+            */
+            List<AccomodationModel1> accommodations = response.Accomodation.ToList();
 
             List<Guid> accommodationIds = accommodations.Select(a => Guid.Parse(a.Id)).ToList();
 
@@ -82,7 +91,14 @@ namespace reservation_service.Service
         public async Task<int> GetTotalReservedDaysByHostId(string hostId)
         {
             AccomodationsResponse response = _client.GetAccommodationsByHostId(hostId);
-            List<Accomodation> accommodations = response.Accomodation.ToList();
+            /*
+            if (response == null || response.Accomodation == null)
+            {
+                // Return a default reservation count when response or accommodations are null
+                return 0;
+            }*/
+
+            List<AccomodationModel1> accommodations = response.Accomodation.ToList();
 
             List<Guid> accommodationIds = accommodations.Select(a => Guid.Parse(a.Id)).ToList();
 
@@ -106,7 +122,13 @@ namespace reservation_service.Service
         public async Task<double> GetCancellationRateByHostAsync(string hostId)
         {
             AccomodationsResponse response = _client.GetAccommodationsByHostId(hostId);
-            List<Accomodation> accommodations = response.Accomodation.ToList();
+            /*
+            if (response == null || response.Accomodation == null)
+            {
+                // Return a default cancellation rate when response or accommodations are null
+                return 0;
+            }*/
+            List<AccomodationModel1> accommodations = response.Accomodation.ToList();
 
             List<Guid> accommodationIds = accommodations.Select(a => Guid.Parse(a.Id)).ToList();
 

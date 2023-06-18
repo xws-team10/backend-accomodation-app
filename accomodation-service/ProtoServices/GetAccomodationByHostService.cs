@@ -3,11 +3,11 @@ using AutoMapper;
 using Grpc.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using search_service;
+using host_service;
 
 namespace accomodation_service.ProtoServices
 {
-    public class GetAccomodationByHostService
+    public class GetAccomodationByHostService : GrpcGetAccomodationsByHost.GrpcGetAccomodationsByHostBase
     {
         private readonly AccomodationRepository _repository;
         private readonly IConfiguration _configuration;
@@ -20,12 +20,12 @@ namespace accomodation_service.ProtoServices
             _mapper = mapper;
         }
 
-        public async Task<AccomodationsResponse> GetAccommodationsByHostId(HostIdRequest request, ServerCallContext context)
+        public override async Task<AccomodationsResponse> GetAccomodationsByHostId(HostIdRequest request, ServerCallContext context)
         {
             string hostIdString = request.HostId;
             Guid hostId = Guid.Parse(hostIdString);
 
-            List<Accomodation> accomodations = await _repository.GetAccomodationsByHostId(hostId);
+            List<AccomodationModel1> accomodations = await _repository.GetAccomodationsByHostId(hostId);
 
 
             AccomodationsResponse response = new AccomodationsResponse();
@@ -33,6 +33,7 @@ namespace accomodation_service.ProtoServices
 
             return response;
         }
+
 
     }
 }

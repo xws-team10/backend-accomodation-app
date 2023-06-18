@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Grpc.Net.Client;
+using host_service;
 
 namespace reservation_service.ProtoServices
 {
-    public class GetAccomodationByHostServiceClient
+    public class GetAccomodationByHostServiceClient : IGetAccomodationByHostServiceClient
     {
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
@@ -16,8 +17,8 @@ namespace reservation_service.ProtoServices
 
         public AccomodationsResponse GetAccommodationsByHostId(string hostId)
         {
-            Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcGetAccomodationsByHost"]} ");
-            var channel = GrpcChannel.ForAddress(_configuration["GrpcGetAccomodationsByHost"]);
+            Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcCheckAccomodations"]} ");
+            var channel = GrpcChannel.ForAddress(_configuration["GrpcCheckAccomodations"]);
             var client = new GrpcGetAccomodationsByHost.GrpcGetAccomodationsByHostClient(channel);
             var request = new HostIdRequest { HostId = hostId };
 

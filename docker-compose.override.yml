@@ -44,6 +44,7 @@ services:
      - ASPNETCORE_ENVIRONMENT=Development
      - "ReservationsDatabase:ConnectionString=mongodb://reservationdb:27017"
      - "GrpcCheckAccomodations=http://accomodation-service:5201"
+     - "GetAccommodationsByHostId=http://accomodation-service:5201"
     depends_on:
       - reservationdb
     ports:

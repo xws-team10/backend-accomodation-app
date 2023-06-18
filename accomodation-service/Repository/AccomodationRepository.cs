@@ -4,7 +4,8 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using accomodation_service.Dtos;
 using AutoMapper;
-using search_service;
+using host_service;
+
 
 
 namespace accomodation_service.Repository
@@ -44,11 +45,11 @@ namespace accomodation_service.Repository
             
         }
 
-        public async Task<List<search_service.Accomodation>> GetAccomodationsByHostId(Guid id)
+        public async Task<List<AccomodationModel1>> GetAccomodationsByHostId(Guid id)
         {
             List<Model.Accomodation> accomodations = await _accomodationsCollection.Find(x => x.HostId == id).ToListAsync();
 
-            List<search_service.Accomodation> mappedAccomodations = _mapper.Map<List<search_service.Accomodation>>(accomodations);
+            List<AccomodationModel1> mappedAccomodations = _mapper.Map<List<AccomodationModel1>>(accomodations);
 
             return mappedAccomodations;
         }
