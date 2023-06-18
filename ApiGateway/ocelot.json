@@ -358,6 +358,91 @@
       }
     },
     {
+      "UpstreamPathTemplate": "/api/HostGrade",
+      "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 5300
+        }
+      ],
+      "DownstreamPathTemplate": "/api/HostGrade",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/HostGrade/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 5300
+        }
+      ],
+      "DownstreamPathTemplate": "/api/HostGrade/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/HostGrade/getByGuest/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 5300
+        }
+      ],
+      "DownstreamPathTemplate": "/api/HostGrade/getByGuest/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/HostGrade/getByGuestAndHost/{username}/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 5300
+        }
+      ],
+      "DownstreamPathTemplate": "/api/HostGrade/getByGuestAndHost/{username}/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/HostGrade/getByHost/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-service",
+          "Port": 5300
+        }
+      ],
+      "DownstreamPathTemplate": "/api/HostGrade/getByHost/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
       "UpstreamPathTemplate": "/api/Account/login",
       "UpstreamHttpMethod": [ "Post", "Options" ],
 
@@ -365,7 +450,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/login",
@@ -382,7 +467,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/register",
@@ -399,7 +484,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/currentUser",
@@ -416,7 +501,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/{username}",
@@ -433,7 +518,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/update",
@@ -450,10 +535,129 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "account-service",
-          "Port": 80
+          "Port": 5300
         }
       ],
       "DownstreamPathTemplate": "/api/Account/roles/add",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/Notification",
+      "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification-service",
+          "Port": 5400
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Notification",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/Notification/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification-service",
+          "Port": 5400
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Notification/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/Notification/getAllByUser/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification-service",
+          "Port": 5400
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Notification/getAllByUser/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/Notification/getUnreadByUser/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification-service",
+          "Port": 5400
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Notification/getUnreadByUser/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/NotificationUserSettings",
+      "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification-service",
+          "Port": 5400
+        }
+      ],
+      "DownstreamPathTemplate": "/api/NotificationUserSettings",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/NotificationUserSettings/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification-service",
+          "Port": 5400
+        }
+      ],
+      "DownstreamPathTemplate": "/api/NotificationUserSettings/{id}",
+      "EnableCors": true,
+      "CorsOptions": {
+        "PolicyName": "CorsPolicy"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/NotificationUserSettings/getByUser/{id}",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification-service",
+          "Port": 5400
+        }
+      ],
+      "DownstreamPathTemplate": "/api/NotificationUserSettings/getByUser/{id}",
       "EnableCors": true,
       "CorsOptions": {
         "PolicyName": "CorsPolicy"

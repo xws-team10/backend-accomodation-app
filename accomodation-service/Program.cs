@@ -50,6 +50,7 @@ builder.Services.AddSingleton<AccomodationGradeRepository>();
 builder.Services.AddSingleton<AccomodationGradeService>();
 
 builder.Services.AddSingleton<CreateAccomodation>();
+builder.Services.AddSingleton<SendNotification>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -85,6 +86,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
     endpoints.MapGrpcService<GrpcCheckAccomodationsService>();
     endpoints.MapGrpcService<GetAccomodationByHostService>();
+    endpoints.MapGrpcService<GrpcGetAccomodationHostService>();
 });
 
 app.Run();

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using accomodation_service.Model;
 using accomodation_service.Service;
 using AutoMapper;
@@ -7,10 +7,12 @@ using accomodation_service.ProtoServices;
 
 namespace accomodation_service.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
     public class AccomodationController : ControllerBase
     {
+
         private readonly AccomodationService _service;
         private readonly IMapper _mapper;
         private readonly CreateAccomodation createAccomodation;
@@ -51,18 +53,18 @@ namespace accomodation_service.Controllers
         {
             var accomodationModel = _mapper.Map<Accomodation>(accomodationCreateDto);
 
-            
 
-            if (!accomodationModel.AvailabilityInitialValidate()) return BadRequest(new ProblemDetails{Title = "Date time is not valid!"});
+
+            if (!accomodationModel.AvailabilityInitialValidate()) return BadRequest(new ProblemDetails { Title = "Date time is not valid!" });
             {
                 await _service.CreateAsync(accomodationModel);
-                createAccomodation.CreateNewAccomodation(accomodationModel.Id, accomodationModel.Name, accomodationModel.Description, accomodationModel.Price, accomodationModel.MaxCapacity, accomodationModel.Address.Country, accomodationModel.Address.City,
+                createAccomodation.CreateNewAccomodation(accomodationModel.Id, accomodationModel.HostId, accomodationModel.Name, accomodationModel.Description, accomodationModel.Price, accomodationModel.MaxCapacity, accomodationModel.Address.Country, accomodationModel.Address.City,
                 accomodationModel.Address.Street, accomodationModel.Address.StreetNumber, accomodationModel.AvailableFromDate, accomodationModel.AvailableToDate);
             }
 
             var accomodationReadDto = _mapper.Map<AccomodationReadDto>(accomodationModel);
-            
-            return CreatedAtRoute(nameof(GetAccomodationById), new { id = accomodationReadDto.Id}, accomodationReadDto);
+
+            return CreatedAtRoute(nameof(GetAccomodationById), new { id = accomodationReadDto.Id }, accomodationReadDto);
             // await _service.CreateAsync(newAccomodation);
             // return CreatedAtAction(nameof(GetAccomodations), new { id = newAccomodation.Id }, newAccomodation);
         }
@@ -70,14 +72,50 @@ namespace accomodation_service.Controllers
         [HttpPut]
         public async Task<IActionResult> AccomodationUpdate(AccomodationChangeDto accomodationChangeDto)
         {
-            if(createAccomodation.CheckReservations(accomodationChangeDto.Id, accomodationChangeDto.AvailableFromDate, accomodationChangeDto.AvailableToDate))
+            Accomodation accomodation = await _service.GetAccomodationById(accomodationChangeDto.Id);
+            var saga = new CreateSaga();
+            bool status = true;
+            saga.Step1 = async () =>
             {
-                await _service.AccomodationUpdate(accomodationChangeDto);
-                createAccomodation.UpdateAccomodation(accomodationChangeDto.Id, accomodationChangeDto.AvailableFromDate, accomodationChangeDto.AvailableToDate);
+                return createAccomodation.CheckReservations(accomodationChangeDto.Id, accomodationChangeDto.AvailableFromDate, accomodationChangeDto.AvailableToDate);
+            };
+            saga.Step2 = async () =>
+            {
+                return await _service.AccomodationUpdate(accomodationChangeDto);
+            };
+            saga.Step3 = async () =>
+            {
+                return createAccomodation.UpdateAccomodation(accomodationChangeDto.Id, accomodationChangeDto.AvailableFromDate, accomodationChangeDto.AvailableToDate);
+            };
+            saga.RbStep2 = async () =>
+            {
+                AccomodationChangeDto newDto = new AccomodationChangeDto();
+                newDto.Id = accomodation.Id;
+                newDto.AvailableFromDate = accomodation.AvailableFromDate;
+                newDto.AvailableToDate = accomodation.AvailableToDate;
+                await _service.AccomodationUpdate(newDto);
+            };
+            saga.RbStep3 = async () =>
+            {
+                createAccomodation.UpdateAccomodation(accomodation.Id, accomodation.AvailableFromDate, accomodation.AvailableToDate);
+            };
+            try
+            {
+                status = status && !await saga.Step1();
+                status = status && await saga.Step2();
+                status = status && await saga.Step3();
+                if(!status)
+                {
+                    await saga.RbStep2();
+                    await saga.RbStep3();
+                    return Ok("Rollback");
+                }
                 return Ok();
             }
-            return BadRequest();
-            
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("change-price")]

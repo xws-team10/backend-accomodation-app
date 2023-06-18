@@ -1,4 +1,6 @@
 using account_service.Model;
+using account_service.ProtoServices;
+using account_service.Repository;
 using account_service.Service;
 using AspNetCore.Identity.MongoDbCore.Extensions;
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
@@ -65,10 +67,24 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
+builder.Services.AddSingleton<HostGradeRepository>();
+builder.Services.AddSingleton<HostGradeService>();
+
+builder.Services.AddSingleton<SendNotification>();
+
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<TokenService>();
 
+builder.Services.AddGrpc();
+
+builder.Services.Configure<KestrelServerOptions>(options =>
+{
+    options.ListenAnyIP(5301, o => o.Protocols = HttpProtocols.Http2);
+    options.ListenAnyIP(5300, o => o.Protocols = HttpProtocols.Http1);
+});
+
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -121,9 +137,14 @@ app.UseCors(opt =>
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapGrpcService<GrpcGetUserIdService>();
+});
 
 app.Run();
