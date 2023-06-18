@@ -44,4 +44,3 @@ message UpdatePriceRequest {
 
 message UpdatePriceResponse{}
 
-

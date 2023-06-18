@@ -121,23 +121,5 @@ namespace reservation_service.Controllers
         [HttpGet("canGuestGradeAccomodation/{username}/{id}")]
         public async Task<bool> CanGuestGradeAcccomodation(string username, Guid id) =>
             await _reservationService.CanGuestGradeAccomodation(username, id);
-
-        [HttpGet("isSuperHost/{hostId}")]
-        public async Task<bool> isSuperHost(string hostId)
-        {
-            string hostIdString = hostId.ToString();
-
-            double cancellationRate = await _reservationService.GetCancellationRateByHostAsync(hostIdString);
-            int reservationCount = await _reservationService.GetReservationCountByHostIdAsync(hostIdString);
-            int totalBookedDays =  await _reservationService.GetTotalReservedDaysByHostId(hostIdString);
-
-            if (cancellationRate > 5 && reservationCount > 5 && totalBookedDays > 50)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
     }
 }

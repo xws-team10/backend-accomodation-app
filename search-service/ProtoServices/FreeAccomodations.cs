@@ -24,7 +24,7 @@ namespace search_service.ProtoServices
             try
             {
                 var reply = client.GetAllFreeAccomodations(request);
-                return _mapper.Map<IEnumerable<AccomodationDto>>(reply.Accomodation);
+                return _mapper.Map<IEnumerable<AccomodationDto>>(reply.Accomodation); ;
             }
             catch (Exception ex)
             {

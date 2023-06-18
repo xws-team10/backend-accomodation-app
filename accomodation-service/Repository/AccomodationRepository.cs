@@ -3,30 +3,23 @@ using accomodation_service.Model;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using accomodation_service.Dtos;
-using AutoMapper;
-using host_service;
-
-
 
 namespace accomodation_service.Repository
 {
     public class AccomodationRepository : IAccomodationRepository
     {
-        private readonly IMongoCollection<Model.Accomodation> _accomodationsCollection;
-        private readonly IMapper _mapper;
-
-        public AccomodationRepository(IOptions<AccomodationDatabaseSettings> accomodationDatabaseSettings, IMapper mapper)
+        private readonly IMongoCollection<Accomodation> _accomodationsCollection;
+        public AccomodationRepository(IOptions<AccomodationDatabaseSettings> accomodationDatabaseSettings)
         {
             var mongoClient = new MongoClient(accomodationDatabaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(accomodationDatabaseSettings.Value.DatabaseName);
-            _accomodationsCollection = mongoDatabase.GetCollection<Model.Accomodation>(accomodationDatabaseSettings.Value.AccomodationsCollectionName);
-            _mapper = mapper;
+            _accomodationsCollection = mongoDatabase.GetCollection<Accomodation>(accomodationDatabaseSettings.Value.AccomodationsCollectionName);
         }
 
-        public async Task<IEnumerable<Model.Accomodation>> GetAllAsync() =>
+        public async Task<IEnumerable<Accomodation>> GetAllAsync() =>
             await _accomodationsCollection.Find(_ => true).ToListAsync();
 
-        public async Task CreateAsync(Model.Accomodation newAccomodation){
+        public async Task CreateAsync(Accomodation newAccomodation){
             if(newAccomodation == null){
                 throw new ArgumentNullException(nameof(newAccomodation));
             }
@@ -40,22 +33,12 @@ namespace accomodation_service.Repository
             throw new Exception("Accomodation with that name already exists!");
             
         }
-        public async Task<Model.Accomodation> GetAccomodationById(Guid id){
+        public async Task<Accomodation> GetAccomodationById(Guid id){
             return await _accomodationsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
             
         }
 
-        public async Task<List<AccomodationModel1>> GetAccomodationsByHostId(Guid id)
-        {
-            List<Model.Accomodation> accomodations = await _accomodationsCollection.Find(x => x.HostId == id).ToListAsync();
-
-            List<AccomodationModel1> mappedAccomodations = _mapper.Map<List<AccomodationModel1>>(accomodations);
-
-            return mappedAccomodations;
-        }
-
-        public async Task AccomodationUpdate(AccomodationChangeDto accomodationChangeDto)
-
+        public async Task<bool> AccomodationUpdate(AccomodationChangeDto accomodationChangeDto)
         {
             var accomodation = _accomodationsCollection.Find(x => x.Id == accomodationChangeDto.Id).FirstOrDefault();
             if(accomodation != null)

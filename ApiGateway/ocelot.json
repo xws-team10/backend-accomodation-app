@@ -86,23 +86,6 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/api/Reservation/isSuperHost",
-      "UpstreamHttpMethod": [ "Get", "Options" ],
-
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "reservation-service",
-          "Port": 5100
-        }
-      ],
-      "DownstreamPathTemplate": "/api/Reservation/isSuperHost",
-      "EnableCors": true,
-      "CorsOptions": {
-        "PolicyName": "CorsPolicy"
-      }
-    },
-    {
       "UpstreamPathTemplate": "/api/Reservation/{id}",
       "UpstreamHttpMethod": [ "Get", "Put", "Delete", "Options" ],
 
