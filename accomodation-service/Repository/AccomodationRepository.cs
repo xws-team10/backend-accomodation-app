@@ -54,7 +54,7 @@ namespace accomodation_service.Repository
             return mappedAccomodations;
         }
 
-        public async Task AccomodationUpdate(AccomodationChangeDto accomodationChangeDto)
+        public async Task<bool> AccomodationUpdate(AccomodationChangeDto accomodationChangeDto)
 
         {
             var accomodation = _accomodationsCollection.Find(x => x.Id == accomodationChangeDto.Id).FirstOrDefault();
