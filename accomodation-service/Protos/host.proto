@@ -1,0 +1,30 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "host_service";
+
+service GrpcGetAccomodationsByHost {
+    rpc GetAccomodationsByHostId (HostIdRequest) returns (AccomodationsResponse);
+}
+
+message HostIdRequest {
+    string hostId = 1;
+}
+
+message AccomodationsResponse {
+    repeated AccomodationModel1 accomodation = 1;
+}
+
+message AccomodationModel1 {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    int32 price = 4;
+    int32 capacity = 5;
+    string country = 6;
+    string city = 7;
+    string street = 8;
+    string streetNumber = 9;
+    string availableFromDate = 10;
+    string availableToDate = 11;
+    string hostId = 12;
+}

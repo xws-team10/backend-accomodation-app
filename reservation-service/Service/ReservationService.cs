@@ -1,16 +1,25 @@
 ﻿using reservation_service.Model;
 using reservation_service.Repository;
 using reservation_service.Service.Core;
+using host_service;
+using reservation_service.ProtoServices;
 
 namespace reservation_service.Service
 {
     public class ReservationService : IReservationService
     {
         private readonly ReservationRepository _repository;
+        private readonly ReservationRequestRepository _repositoryRequest;
 
-        public ReservationService(ReservationRepository repository)
+        private readonly GetAccomodationByHostServiceClient _client;
+
+
+        public ReservationService(ReservationRepository repository, GetAccomodationByHostServiceClient getAccomodation,
+            ReservationRequestRepository repositoryRequest)
         {
             _repository = repository;
+            _client = getAccomodation;
+            _repositoryRequest = repositoryRequest;
         }
 
         public async Task<List<Reservation>> GetAllAsync() =>
@@ -56,6 +65,102 @@ namespace reservation_service.Service
             }
             return false;
         }
+
+        public async Task<int> GetReservationCountByHostIdAsync(string hostId)
+        {
+            AccomodationsResponse response = _client.GetAccommodationsByHostId(hostId);
+            /*
+            if (response == null || response.Accomodation == null)
+            {
+                Console.WriteLine(response);
+                // Return a default reservation count when response or accommodations are null
+                return 0;
+            }
+            */
+            List<AccomodationModel1> accommodations = response.Accomodation.ToList();
+
+            List<Guid> accommodationIds = accommodations.Select(a => Guid.Parse(a.Id)).ToList();
+
+            List<Reservation> reservations = await _repository.GetAllAsync();
+
+            int reservationCount = reservations.Count(r => accommodationIds.Contains(r.AccomodationId));
+
+            return reservationCount;
+        }
+
+        public async Task<int> GetTotalReservedDaysByHostId(string hostId)
+        {
+            AccomodationsResponse response = _client.GetAccommodationsByHostId(hostId);
+            /*
+            if (response == null || response.Accomodation == null)
+            {
+                // Return a default reservation count when response or accommodations are null
+                return 0;
+            }*/
+
+            List<AccomodationModel1> accommodations = response.Accomodation.ToList();
+
+            List<Guid> accommodationIds = accommodations.Select(a => Guid.Parse(a.Id)).ToList();
+
+            List<Reservation> reservations = await _repository.GetAllAsync();
+
+            int totalReservedDays = 0;
+
+            foreach (Reservation reservation in reservations)
+            {
+                if (accommodationIds.Contains(reservation.AccomodationId))
+                {
+                    TimeSpan reservationDuration = reservation.EndDate - reservation.StartDate;
+                    int reservedDays = (int)reservationDuration.TotalDays;
+                    totalReservedDays += reservedDays;
+                }
+            }
+
+            return totalReservedDays;
+        }
+
+        public async Task<double> GetCancellationRateByHostAsync(string hostId)
+        {
+            AccomodationsResponse response = _client.GetAccommodationsByHostId(hostId);
+            /*
+            if (response == null || response.Accomodation == null)
+            {
+                // Return a default cancellation rate when response or accommodations are null
+                return 0;
+            }*/
+            List<AccomodationModel1> accommodations = response.Accomodation.ToList();
+
+            List<Guid> accommodationIds = accommodations.Select(a => Guid.Parse(a.Id)).ToList();
+
+            List<ReservationRequest> reservations = await _repositoryRequest.GetAllAsync();
+
+            int totalReservations = 0;
+            int canceledReservations = 0;
+
+            foreach (ReservationRequest reservation in reservations)
+            {
+                if (accommodationIds.Contains(reservation.AccomodationId))
+                {
+                    totalReservations++;
+
+                    if (reservation.Status == Status.REJECTED)
+                    {
+                        canceledReservations++;
+                    }
+                }
+            }
+
+            double cancellationRate = 0;
+
+            if (totalReservations > 0)
+            {
+                cancellationRate = (double)canceledReservations / totalReservations * 100;
+            }
+
+            return cancellationRate;
+        }
+
+
 
     }
 }

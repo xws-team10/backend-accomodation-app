@@ -52,7 +52,9 @@ services:
      - "GrpcGetUserId=http://account-service:5301"
      - "GrpcGetAccomodationHost=http://accomodation-service:5201"
      - "GrpcCheckAccomodations=http://accomodation-service:5201"
+     - "GetAccommodationsByHostId=http://accomodation-service:5201"
      - "GrpcReservationNotifications=http://notification-service:5401" 
+
     depends_on:
       - reservationdb
     ports:

@@ -1,6 +1,7 @@
 using accomodation_service.Dtos;
 using accomodation_service.Model;
 using AutoMapper;
+using host_service;
 
 namespace accomodation_service.Profiles
 {
@@ -12,6 +13,7 @@ namespace accomodation_service.Profiles
             CreateMap<Accomodation, AccomodationReadDto>();
             CreateMap<AccomodationReadDto, Accomodation>();
             CreateMap<AccomodationCreateDto, Accomodation>();
+            CreateMap<Accomodation, AccomodationModel1>();
         }
     }
 }

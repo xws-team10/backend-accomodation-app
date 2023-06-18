@@ -11,5 +11,6 @@ namespace account_service.Model
         public string Name { get; set; }
         public string Surname { get; set; }
 
+        public float Rating { get; set; }
     }
 }
