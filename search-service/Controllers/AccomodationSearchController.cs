@@ -27,7 +27,9 @@ namespace search_service.Controllers
         }
 
         [HttpGet("getBySearch")]
-        public async Task<List<Accomodation>> GetBySearch(DateTime startDate,DateTime endDate, int capacity = 0, int price = 0, string place = "") =>
-            await _service.GetBySearch(capacity,startDate,endDate,place,price);
+        public async Task<List<Accomodation>> GetBySearch(DateTime startDate, DateTime endDate, int capacity = 0, int price = 0, string place = "", string amenities = "", string host = "")
+        {
+            return await _service.GetBySearch(capacity, startDate, endDate, place, price, amenities, host);
+        }
     }
 }
