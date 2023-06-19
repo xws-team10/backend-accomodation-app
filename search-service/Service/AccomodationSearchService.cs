@@ -3,6 +3,10 @@ using search_service.Model;
 using search_service.ProtoServices;
 using search_service.Repository;
 using search_service.Service.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace search_service.Service
 {
@@ -11,36 +15,49 @@ namespace search_service.Service
         private readonly AccomodationRepository _repository;
         private readonly FreeAccomodations freeAccomodations;
 
+
         public AccomodationSearchService(AccomodationRepository repository, FreeAccomodations freeAccomodations)
         {
             _repository = repository;
             this.freeAccomodations = freeAccomodations;
         }
+
         public async Task<List<Accomodation>> GetAllAsync() =>
             await _repository.GetAllAsync();
 
-        public async Task<List<Accomodation>> GetBySearch(int capacity, DateTime startDate, DateTime endDate, string place, int price)
+        public async Task<List<Accomodation>> GetBySearch(int capacity, DateTime startDate, DateTime endDate, string place, int price, string amenities, string host)
         {
-
-            List<Accomodation> AccomodationsBySearch = new List<Accomodation>();
+            List<Accomodation> accomodationsBySearch = new List<Accomodation>();
             List<AccomodationDto> freeDate = (List<AccomodationDto>)freeAccomodations.GetAllFreeAccomodations(startDate, endDate).Distinct().ToList();
 
             foreach (Accomodation accomodation in await GetAllAsync())
-            { 
-                if(accomodation.Price <= price && accomodation.Capacity >= capacity)
-                if(((accomodation.Address.City).ToLower()).Equals(place.ToLower()) || place == "")
-                if(isFree(freeDate,accomodation.Id))
-                if((startDate >= accomodation.AvailableFromDate) && (endDate <= accomodation.AvailableToDate))
-                    AccomodationsBySearch.Add(accomodation);
+            {
+                    if (capacity == 0 || accomodation.Capacity >= capacity) 
+                    if (price == 0 || accomodation.Price <= price) 
+                    if(string.IsNullOrEmpty(place) || accomodation.Address.City.ToLower() == place.ToLower()) 
+                    if (isFree(freeDate, accomodation.Id) )
+                    if(startDate == DateTime.MinValue || accomodation.AvailableFromDate <= startDate) 
+                    if(endDate == DateTime.MinValue || accomodation.AvailableToDate >= endDate) 
+                    if(string.IsNullOrEmpty(amenities) || accomodation.Description.Contains(amenities)) 
+                    if(string.IsNullOrEmpty(host) || accomodation.Description == host)
+                {
+                    accomodationsBySearch.Add(accomodation);
+                }
             }
-            return AccomodationsBySearch;
+
+            return accomodationsBySearch;
         }
+
         public bool isFree(List<AccomodationDto> freeIds, Guid id)
         {
-            foreach(AccomodationDto accomodation in freeIds) {
-                if(accomodation.Id.Equals(id)) 
+            foreach (AccomodationDto accomodation in freeIds)
+            {
+                if (accomodation.Id.Equals(id))
+                {
                     return false;
+                }
             }
+
             return true;
         }
 
@@ -55,6 +72,11 @@ namespace search_service.Service
         public async Task AccomodationUpdate(AccomodationUpdateDto accomodationChangeDto)
         {
             await _repository.AccomodationUpdate(accomodationChangeDto);
+        }
+
+        public Task<List<Accomodation>> GetBySearch(int capacity, DateTime startDate, DateTime endDate, string place, int price)
+        {
+            throw new NotImplementedException();
         }
     }
 }
