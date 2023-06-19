@@ -123,7 +123,7 @@ namespace reservation_service.Controllers
             await _reservationService.CanGuestGradeAccomodation(username, id);
 
         [HttpGet("isSuperHost/{hostId}")]
-        public async Task<bool> isSuperHost(string hostId)
+        public async Task<bool> IsSuperHost(string hostId)
         {
             string hostIdString = hostId.ToString();
 
@@ -133,9 +133,10 @@ namespace reservation_service.Controllers
 
             if (cancellationRate > 5 && reservationCount > 5 && totalBookedDays > 50)
             {
+                _sendNotification.CreateNotification("You earned the status of Super Host!", new Guid(hostIdString), 4);
                 return true;
             }
-
+            _sendNotification.CreateNotification("You lost the status of Super Host.", new Guid(hostIdString), 4);
             return false;
         }
 

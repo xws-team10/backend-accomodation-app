@@ -21,10 +21,34 @@ namespace notification_service.Service
         public async Task<Notification> GetByIdAsync(Guid id) =>
             await _repository.GetByIdAsync(id);
 
-        public async Task<List<Notification>> GetAllByUserAsync(Guid id) =>
-            await _repository.GetAllByUserAsync(id);
+        public async Task<List<Notification>> GetAllByUserAsync(Guid id)
+        {
+            List<Notification> allNotifications = await _repository.GetAllByUserAsync(id);
+            List<Notification> filteredNotifications = allNotifications.OrderByDescending(n => n.Created).ToList();
+
+            return filteredNotifications;
+        }
 
         public async Task<List<Notification>> GetUnreadByUserAsync(Guid id)
+        {
+            List<NotificationType> types = await GetAcceptedTypes(id);
+
+            List<Notification> allNotifications = await _repository.GetUnreadByUserAsync(id);
+            List<Notification> filteredNotifications = allNotifications.FindAll(n => types.Contains(n.Type)).OrderByDescending(n => n.Created).ToList();
+
+            return filteredNotifications;
+        }
+
+        public async Task CreateAsync(Notification newNotification) =>
+            await _repository.CreateAsync(newNotification);
+
+        public async Task UpdateAsync(Guid id, Notification updateNotification) =>
+            await _repository.UpdateAsync(id, updateNotification);
+
+        public async Task DeleteAsync(Guid id) =>
+            await _repository.DeleteAsync(id);
+
+        private async Task<List<NotificationType>> GetAcceptedTypes(Guid id)
         {
             NotificationUserSettings userSettings = await _notificationUserSettingsService.GetByUserAsync(id);
             List<NotificationType> types = new List<NotificationType>();
@@ -41,19 +65,7 @@ namespace notification_service.Service
             if (userSettings.showReservationRequestReply)
                 types.Add(NotificationType.RESERVATION_REQUEST_REPLY);
 
-            List<Notification> allNotifications = await _repository.GetUnreadByUserAsync(id);
-            List<Notification> filteredNotifications = allNotifications.FindAll(n => types.Contains(n.Type));
-
-            return filteredNotifications;
+            return types;
         }
-
-        public async Task CreateAsync(Notification newNotification) =>
-            await _repository.CreateAsync(newNotification);
-
-        public async Task UpdateAsync(Guid id, Notification updateNotification) =>
-            await _repository.UpdateAsync(id, updateNotification);
-
-        public async Task DeleteAsync(Guid id) =>
-            await _repository.DeleteAsync(id);
     }
 }

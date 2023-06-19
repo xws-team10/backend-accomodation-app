@@ -86,7 +86,7 @@
       }
     },
     {
-      "UpstreamPathTemplate": "/api/Reservation/isSuperHost",
+      "UpstreamPathTemplate": "/api/Reservation/isSuperHost/{hostId}",
       "UpstreamHttpMethod": [ "Get", "Options" ],
 
       "DownstreamScheme": "http",
@@ -96,7 +96,7 @@
           "Port": 5100
         }
       ],
-      "DownstreamPathTemplate": "/api/Reservation/isSuperHost",
+      "DownstreamPathTemplate": "/api/Reservation/isSuperHost/{hostId}",
       "EnableCors": true,
       "CorsOptions": {
         "PolicyName": "CorsPolicy"

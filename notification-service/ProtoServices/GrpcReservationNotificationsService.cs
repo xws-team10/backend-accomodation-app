@@ -22,6 +22,26 @@ namespace notification_service.ProtoServices
                 Type = (NotificationType)request.Type
             };
 
+            if (notification.Type.Equals(NotificationType.SUPER_HOST))
+            {
+                List<Notification> allNotifications = await _notificationService.GetAllByUserAsync(notification.UserId);
+                List<Notification> filteredNotifications = allNotifications.FindAll(n => n.Type.Equals(NotificationType.SUPER_HOST)).OrderByDescending(n => n.Created).ToList();
+
+                if (filteredNotifications.Count > 0)
+                {
+                    if (!filteredNotifications[0].Text.Equals(request.Text))
+                    {
+                        await _notificationService.CreateAsync(notification);
+                        response.Created = true;
+                        return await Task.FromResult(response);
+                    }
+                    else
+                    {
+                        return await Task.FromResult(response);
+                    }
+                }
+            }
+
             await _notificationService.CreateAsync(notification);
 
             response.Created = true;
